@@ -11,7 +11,10 @@ import {
   TrendingUp, 
   Target,
   Sparkles,
-  Zap
+  Zap,
+  Gift,
+  Swords,
+  Clock
 } from 'lucide-react';
 import { UserRankProfile } from '../types';
 import { formatINR } from '../utils/formatters';
@@ -22,7 +25,11 @@ interface YourRankProps {
   onOpenSubmitModal: () => void;
   onOpenWhatsAppModal: () => void;
   onOpenPrivacyModal: () => void;
+  onOpenMilestoneRewards?: () => void;
+  onOpenChallengeFriend?: () => void;
+  onOpenWhileAway?: () => void;
   onViewLeaderboardRow?: () => void;
+  onViewRivalCaseStudy?: (participantId: string) => void;
 }
 
 export const YourRank: React.FC<YourRankProps> = ({
@@ -31,16 +38,18 @@ export const YourRank: React.FC<YourRankProps> = ({
   onOpenSubmitModal,
   onOpenWhatsAppModal,
   onOpenPrivacyModal,
+  onOpenMilestoneRewards,
+  onOpenChallengeFriend,
+  onOpenWhileAway,
   onViewLeaderboardRow,
+  onViewRivalCaseStudy,
 }) => {
   // Calculate progress towards next rank (percentage)
-  // E.g. If current income is 12,450, gap is 850, next rank income is 13,300.
-  // Progress can be visually displayed on an intuitive segment
   const nextTargetIncome = userProfile.income + userProfile.gapToNextRank;
   const progressRatio = Math.min(Math.max((userProfile.income / nextTargetIncome) * 100, 15), 90);
 
   return (
-    <div id="your-rank-card" className="relative my-6 sm:my-8 rounded-2xl sm:rounded-3xl bg-[#111111] border-2 border-[#BEFF00]/40 p-5 sm:p-7 md:p-8 shadow-[0_0_40px_rgba(190,255,0,0.12)] overflow-hidden">
+    <div id="your-rank-card" className="relative my-4 sm:my-6 rounded-2xl sm:rounded-3xl bg-[#111111] border-2 border-[#BEFF00]/40 p-5 sm:p-7 md:p-8 shadow-[0_0_40px_rgba(190,255,0,0.12)] overflow-hidden">
       
       {/* Background Watermark and Ambient Glow */}
       <div className="rupee-watermark text-8xl sm:text-9xl -bottom-6 -right-6 select-none opacity-20">₹</div>
@@ -52,22 +61,34 @@ export const YourRank: React.FC<YourRankProps> = ({
           <span className="px-3 py-1 rounded-md bg-[#BEFF00] text-black font-extrabold text-xs tracking-wider uppercase font-mono shadow-sm">
             YOUR STANDING
           </span>
-          <span className="text-xs font-mono text-neutral-400 flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-[#BEFF00] inline-block animate-pulse"></span>
-            Live Motivation Engine
+          <span className="px-2.5 py-0.5 rounded-md bg-amber-500/15 border border-amber-500/30 text-amber-300 font-mono text-xs font-bold flex items-center gap-1">
+            <Flame className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+            <span>{userProfile.streakDays}-Day Earning Streak</span>
           </span>
         </div>
 
-        {/* Visibility Setting Quick Pill */}
-        <button
-          onClick={onOpenPrivacyModal}
-          className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#161616] hover:bg-neutral-800 border border-neutral-800 text-[11px] font-mono text-neutral-400 hover:text-neutral-200 transition-colors"
-          title="Change public display name or hide earnings"
-          id="btn-privacy-settings"
-        >
-          <Eye className="w-3.5 h-3.5 text-neutral-400" />
-          <span>Showing as: <strong className="text-white">{userProfile.displayName}</strong></span>
-        </button>
+        {/* Action badges */}
+        <div className="flex items-center gap-2">
+          {onOpenWhileAway && (
+            <button
+              onClick={onOpenWhileAway}
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#161616] hover:bg-neutral-800 border border-neutral-800 text-[11px] font-mono text-amber-400 hover:text-amber-300 transition-colors"
+            >
+              <Clock className="w-3.5 h-3.5" />
+              <span>Catch-Up (14h away)</span>
+            </button>
+          )}
+
+          <button
+            onClick={onOpenPrivacyModal}
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#161616] hover:bg-neutral-800 border border-neutral-800 text-[11px] font-mono text-neutral-400 hover:text-neutral-200 transition-colors"
+            title="Change public display name or hide earnings"
+            id="btn-privacy-settings"
+          >
+            <Eye className="w-3.5 h-3.5 text-neutral-400" />
+            <span>Showing as: <strong className="text-white">{userProfile.displayName}</strong></span>
+          </button>
+        </div>
       </div>
 
       {/* Main Grid: User Rank Info & Motivation Target */}
@@ -115,26 +136,52 @@ export const YourRank: React.FC<YourRankProps> = ({
           </div>
         </div>
 
-        {/* Right: The Next Target Gap & Motivational Progress Bar */}
+        {/* Right: Personal Rival Card & The Next Target Gap */}
         <div className="lg:col-span-6 p-4 sm:p-5 rounded-2xl bg-[#161616] border border-neutral-800 space-y-3">
           
           <div className="flex items-center justify-between text-xs sm:text-sm">
             <div className="flex items-center gap-1.5 font-bold text-white">
               <Target className="w-4 h-4 text-[#BEFF00]" />
-              <span>Next Target:</span>
+              <span>Personal Rival Target:</span>
               <span className="text-[#BEFF00] font-mono">
-                {formatINR(userProfile.gapToNextRank)} more → #{userProfile.nextRankNumber} ({userProfile.nextRankParticipantName})
+                {formatINR(userProfile.gapToNextRank)} gap
               </span>
             </div>
 
-            <span className="text-[11px] font-mono text-neutral-400 hidden sm:inline">
-              Gap to climb
+            <span className="text-[11px] font-mono text-neutral-400">
+              #{userProfile.nextRankNumber} Standing
             </span>
+          </div>
+
+          {/* Rival Profile Snippet */}
+          <div className="p-2.5 rounded-xl bg-neutral-900/80 border border-neutral-800 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <img
+                src={userProfile.nextRankParticipantAvatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80'}
+                alt={userProfile.nextRankParticipantName}
+                className="w-9 h-9 rounded-full object-cover border border-amber-400/60 shrink-0"
+              />
+              <div className="truncate">
+                <div className="font-bold text-xs text-white truncate">
+                  #{userProfile.nextRankNumber} {userProfile.nextRankParticipantName}
+                </div>
+                <div className="text-[10px] font-mono text-neutral-400">
+                  {userProfile.nextRankParticipantCollege || 'SRM University'} · {formatINR(nextTargetIncome)}
+                </div>
+              </div>
+            </div>
+
+            <button
+              onClick={() => onViewRivalCaseStudy?.('p-1')}
+              className="px-2.5 py-1 rounded-lg bg-neutral-800 hover:bg-neutral-700 text-[#BEFF00] font-mono text-[10px] font-bold border border-neutral-700 shrink-0"
+            >
+              Inspect Playbook
+            </button>
           </div>
 
           {/* Visual Interactive Target Bar */}
           <div className="space-y-1.5">
-            <div className="relative h-4 bg-neutral-950 rounded-full overflow-hidden border border-neutral-800 p-0.5">
+            <div className="relative h-3.5 bg-neutral-950 rounded-full overflow-hidden border border-neutral-800 p-0.5">
               <div
                 className="h-full bg-gradient-to-r from-emerald-500 via-[#BEFF00] to-[#BEFF00] rounded-full transition-all duration-500 relative"
                 style={{ width: `${progressRatio}%` }}
@@ -148,7 +195,7 @@ export const YourRank: React.FC<YourRankProps> = ({
                 #{userProfile.rank} YOU ({formatINR(userProfile.income)})
               </span>
               <span className="text-[#BEFF00] font-semibold flex items-center gap-1">
-                #{userProfile.nextRankNumber} {userProfile.nextRankParticipantName} ({formatINR(nextTargetIncome)})
+                #{userProfile.nextRankNumber} ({formatINR(nextTargetIncome)})
               </span>
             </div>
           </div>
@@ -157,10 +204,10 @@ export const YourRank: React.FC<YourRankProps> = ({
           <div className="flex items-center justify-between pt-1 text-xs">
             <p className="text-neutral-300 italic font-medium flex items-center gap-1.5">
               <Flame className="w-3.5 h-3.5 text-[#BEFF00]" />
-              &ldquo;You&apos;re closer than you think.&rdquo;
+              &ldquo;One ₹1,000 gig flips this rank.&rdquo;
             </p>
             <span className="text-[11px] text-amber-300 font-mono flex items-center gap-1">
-              Someone&apos;s coming for your spot 👀
+              {formatINR(userProfile.gapToTop10)} to Top 10
             </span>
           </div>
         </div>
@@ -179,13 +226,33 @@ export const YourRank: React.FC<YourRankProps> = ({
             <span>Submit ₹ Proof to Climb</span>
           </button>
 
+          {onOpenChallengeFriend && (
+            <button
+              onClick={onOpenChallengeFriend}
+              className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#161616] hover:bg-neutral-800 text-white font-bold text-xs sm:text-sm tracking-tight border border-neutral-800 transition-all hover:border-[#BEFF00]/40"
+            >
+              <Swords className="w-4 h-4 text-[#BEFF00]" />
+              <span>1v1 Duel a Friend</span>
+            </button>
+          )}
+
+          {onOpenMilestoneRewards && (
+            <button
+              onClick={onOpenMilestoneRewards}
+              className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#161616] hover:bg-neutral-800 text-amber-300 font-bold text-xs sm:text-sm tracking-tight border border-neutral-800 transition-all"
+            >
+              <Gift className="w-4 h-4 text-amber-400" />
+              <span>Milestone Perks</span>
+            </button>
+          )}
+
           <button
             onClick={onOpenShareModal}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#161616] hover:bg-neutral-800 active:scale-95 text-white font-bold text-xs sm:text-sm tracking-tight border border-neutral-800 transition-all hover:border-[#BEFF00]/40"
+            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#161616] hover:bg-neutral-800 active:scale-95 text-neutral-300 hover:text-white font-bold text-xs sm:text-sm tracking-tight border border-neutral-800 transition-all"
             id="btn-share-my-rank"
           >
             <Share2 className="w-4 h-4 text-[#BEFF00]" />
-            <span>Share My Rank</span>
+            <span className="hidden sm:inline">Share Rank</span>
           </button>
 
           <button
@@ -195,7 +262,6 @@ export const YourRank: React.FC<YourRankProps> = ({
           >
             <MessageCircle className="w-4 h-4 text-emerald-400" />
             <span className="hidden sm:inline">WhatsApp Alerts</span>
-            <span className="sm:hidden">Alerts</span>
           </button>
         </div>
 
@@ -214,3 +280,4 @@ export const YourRank: React.FC<YourRankProps> = ({
     </div>
   );
 };
+

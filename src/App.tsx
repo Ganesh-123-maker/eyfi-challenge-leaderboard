@@ -27,6 +27,15 @@ import {
   LeaderboardTable 
 } from './components/LeaderboardTable';
 import { 
+  RaceToTop10 
+} from './components/RaceToTop10';
+import { 
+  CampusWars 
+} from './components/CampusWars';
+import { 
+  BountyBoard 
+} from './components/BountyBoard';
+import { 
   FastestRisers 
 } from './components/FastestRisers';
 import { 
@@ -51,6 +60,21 @@ import {
   SubmitEarningModal 
 } from './components/SubmitEarningModal';
 import { 
+  HowIEarnedItModal 
+} from './components/HowIEarnedItModal';
+import { 
+  MilestoneRewardsDrawer 
+} from './components/MilestoneRewardsDrawer';
+import { 
+  ChallengeFriendModal 
+} from './components/ChallengeFriendModal';
+import { 
+  WhileYouWereAwayModal 
+} from './components/WhileYouWereAwayModal';
+import { 
+  HallOfFameModal 
+} from './components/HallOfFameModal';
+import { 
   LiveSimulationBar 
 } from './components/LiveSimulationBar';
 import { 
@@ -69,19 +93,31 @@ import {
   TimeRange, 
   FilterType, 
   SortOption, 
-  Category 
+  Category,
+  CollegeRanking,
+  Bounty,
+  MilestoneReward
 } from './types';
 
 import { 
   INITIAL_USER_PROFILE, 
   MOCK_PARTICIPANTS, 
-  MOCK_TEAMS 
+  MOCK_TEAMS,
+  MOCK_COLLEGES,
+  MOCK_BOUNTIES,
+  MOCK_CASE_STUDIES,
+  MOCK_MILESTONES,
+  MOCK_PAST_WAVES,
+  MOCK_WHILE_AWAY_RECAP
 } from './data/mockData';
 
 export default function App() {
   // State: Data Collections
   const [participants, setParticipants] = useState<Participant[]>(MOCK_PARTICIPANTS);
   const [teams, setTeams] = useState<Team[]>(MOCK_TEAMS);
+  const [colleges, setColleges] = useState<CollegeRanking[]>(MOCK_COLLEGES);
+  const [bounties, setBounties] = useState<Bounty[]>(MOCK_BOUNTIES);
+  const [milestones, setMilestones] = useState<MilestoneReward[]>(MOCK_MILESTONES);
   const [userProfile, setUserProfile] = useState<UserRankProfile>(INITIAL_USER_PROFILE);
 
   // State: Leaderboard Filters & View
@@ -99,6 +135,13 @@ export default function App() {
   const [isPrivacyModalOpen, setIsPrivacyModalOpen] = useState(false);
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
   const [selectedDetailItem, setSelectedDetailItem] = useState<Participant | Team | null>(null);
+  
+  // Upgraded Feature Modals
+  const [isWhileAwayOpen, setIsWhileAwayOpen] = useState(false);
+  const [isMilestonesOpen, setIsMilestonesOpen] = useState(false);
+  const [isChallengeFriendOpen, setIsChallengeFriendOpen] = useState(false);
+  const [isHallOfFameOpen, setIsHallOfFameOpen] = useState(false);
+  const [selectedCaseStudyId, setSelectedCaseStudyId] = useState<string | null>(null);
 
   // Sticky Rank Bar Visibility
   const [showStickyRank, setShowStickyRank] = useState(false);
@@ -109,6 +152,19 @@ export default function App() {
 
   // Simulation State Flag (e.g. Zero-earning new user)
   const [isZeroState, setIsZeroState] = useState(false);
+
+  // Check While You Were Away on initial session start
+  useEffect(() => {
+    const hasSeenAway = sessionStorage.getItem('eyfi_seen_away_recap');
+    if (!hasSeenAway) {
+      // Show subtle auto-popup after 1.5s
+      const timer = setTimeout(() => {
+        setIsWhileAwayOpen(true);
+        sessionStorage.setItem('eyfi_seen_away_recap', 'true');
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   // 1. URL Query Parameter Sync on Initial Load
   useEffect(() => {
@@ -121,7 +177,7 @@ export default function App() {
       const urlSort = params.get('sort');
       const urlSearch = params.get('search');
 
-      if (urlType === 'team' || urlType === 'individual') setMode(urlType);
+      if (urlType === 'team' || urlType === 'individual' || urlType === 'college') setMode(urlType);
       if (urlPeriod === 'overall' || urlPeriod === 'week' || urlPeriod === 'today') setTimeRange(urlPeriod);
       if (urlCategory) setSelectedCategory(urlCategory as Category);
       if (urlFilter) setSelectedFilter(urlFilter as FilterType);
@@ -156,7 +212,6 @@ export default function App() {
     const handleScroll = () => {
       if (!yourRankRef.current) return;
       const rect = yourRankRef.current.getBoundingClientRect();
-      // Show sticky bar once the main card scrolls past the viewport top
       if (rect.bottom < 50) {
         setShowStickyRank(true);
       } else {
@@ -200,22 +255,25 @@ export default function App() {
     let list: (Participant | Team)[] = mode === 'individual' ? [...participants] : [...teams];
 
     // 1. Search Query
-    if (searchQuery.trim()) {
+    if (searchQuery && searchQuery.trim()) {
       const q = searchQuery.toLowerCase().trim();
       list = list.filter((item) => {
         if (mode === 'individual') {
           const p = item as Participant;
           return (
-            p.name.toLowerCase().includes(q) ||
-            p.displayName.toLowerCase().includes(q) ||
-            p.college.toLowerCase().includes(q) ||
+            (p.name && p.name.toLowerCase().includes(q)) ||
+            (p.displayName && p.displayName.toLowerCase().includes(q)) ||
+            (p.college && p.college.toLowerCase().includes(q)) ||
             (p.hustleTitle && p.hustleTitle.toLowerCase().includes(q))
           );
         } else {
           const t = item as Team;
           return (
-            t.teamName.toLowerCase().includes(q) ||
-            t.members.some((m) => m.name.toLowerCase().includes(q) || m.college.toLowerCase().includes(q))
+            (t.teamName && t.teamName.toLowerCase().includes(q)) ||
+            (t.members && t.members.some((m) => 
+              (m.name && m.name.toLowerCase().includes(q)) || 
+              (m.college && m.college.toLowerCase().includes(q))
+            ))
           );
         }
       });
@@ -228,12 +286,14 @@ export default function App() {
 
     // 3. Special Filter Type
     if (selectedFilter === 'my_college') {
-      const userCol = userProfile.college.toLowerCase();
+      const userCol = (userProfile?.college || '').toLowerCase();
       list = list.filter((item) => {
         if (mode === 'individual') {
-          return (item as Participant).college.toLowerCase().includes(userCol);
+          const p = item as Participant;
+          return p.college ? p.college.toLowerCase().includes(userCol) : false;
         } else {
-          return (item as Team).members.some((m) => m.college.toLowerCase().includes(userCol));
+          const t = item as Team;
+          return t.members ? t.members.some((m) => m.college && m.college.toLowerCase().includes(userCol)) : false;
         }
       });
     } else if (selectedFilter === 'top_10') {
@@ -243,7 +303,6 @@ export default function App() {
     }
 
     // 4. Time Range Calculation for Income
-    // We sort according to selected sort option:
     list.sort((a, b) => {
       const getAmount = (item: Participant | Team) => {
         if (mode === 'individual') {
@@ -260,7 +319,6 @@ export default function App() {
       } else if (selectedSort === 'movement') {
         return b.rankChange - a.rankChange;
       } else {
-        // default rank
         return a.rank - b.rank;
       }
     });
@@ -303,7 +361,6 @@ export default function App() {
 
   // Earning Submission Handler
   const handleSubmitSuccess = (amount: number, category: Category, title: string) => {
-    // 1. Update user profile
     const newIncome = userProfile.income + amount;
     const climbedPositions = Math.min(Math.floor(amount / 500) + 1, 6);
     const newRank = Math.max(userProfile.rank - climbedPositions, 1);
@@ -317,9 +374,9 @@ export default function App() {
       rankChange: prev.rankChange + climbedPositions,
       gapToNextRank: newGap,
       category: category,
+      streakDays: prev.streakDays + 1,
     }));
 
-    // 2. Update participants list
     setParticipants((prev) =>
       prev.map((p) =>
         p.isCurrentUser
@@ -329,19 +386,76 @@ export default function App() {
               rank: newRank,
               rankChange: p.rankChange + climbedPositions,
               hustleTitle: title,
+              streakDays: (p.streakDays || 4) + 1,
             }
           : p
       )
     );
 
-    // 3. Trigger celebratory toast
+    // Update college contribution
+    setColleges((prev) =>
+      prev.map((c) =>
+        c.isUserCollege
+          ? {
+              ...c,
+              totalIncome: c.totalIncome + amount,
+              rankChange: c.rankChange + 1,
+            }
+          : c
+      )
+    );
+
+    // Update milestones
+    setMilestones((prev) =>
+      prev.map((m) => {
+        if (newIncome >= m.targetIncome && m.status === 'locked') {
+          return { ...m, status: 'unlocked' };
+        }
+        return m;
+      })
+    );
+
     setActiveToast({
       id: 'toast-climbed',
       type: 'climbed',
       title: `🔥 Climbed to #${newRank}!`,
-      body: `Verified ₹${amount.toLocaleString('en-IN')}! You jumped ${climbedPositions} positions on the live board.`,
+      body: `Verified ₹${amount.toLocaleString('en-IN')}! You jumped ${climbedPositions} positions on the live board and boosted your college standing.`,
       ctaText: 'Share My New Rank',
       action: () => setIsShareModalOpen(true),
+    });
+  };
+
+  // Claim Bounty Handler
+  const handleClaimBounty = (bountyId: string) => {
+    const bounty = bounties.find((b) => b.id === bountyId);
+    if (!bounty) return;
+
+    setBounties((prev) =>
+      prev.map((b) => (b.id === bountyId ? { ...b, status: 'claimed' as const } : b))
+    );
+
+    setActiveToast({
+      id: `toast-bounty-${bountyId}`,
+      type: 'climbed',
+      title: `⚡ Bounty Claimed: ${bounty.title}`,
+      body: `Complete this task within ${bounty.deadline} and submit proof to claim ₹${bounty.rewardINR.toLocaleString('en-IN')}.`,
+      ctaText: 'Submit Proof When Done',
+      action: () => setIsSubmitModalOpen(true),
+    });
+  };
+
+  // Claim Milestone Perk
+  const handleClaimReward = (milestoneId: string) => {
+    setMilestones((prev) =>
+      prev.map((m) => (m.id === milestoneId ? { ...m, status: 'claimed' as const } : m))
+    );
+
+    const m = milestones.find((item) => item.id === milestoneId);
+    setActiveToast({
+      id: `toast-milestone-${milestoneId}`,
+      type: 'climbed',
+      title: `🎁 Perk Claimed: ${m?.rewardTitle}`,
+      body: 'Check your email/WhatsApp for instructions to redeem your exclusive unlocked reward.',
     });
   };
 
@@ -413,6 +527,9 @@ export default function App() {
     setUserProfile(INITIAL_USER_PROFILE);
     setParticipants(MOCK_PARTICIPANTS);
     setTeams(MOCK_TEAMS);
+    setColleges(MOCK_COLLEGES);
+    setBounties(MOCK_BOUNTIES);
+    setMilestones(MOCK_MILESTONES);
     setIsZeroState(false);
     setActiveToast(null);
   };
@@ -452,6 +569,8 @@ export default function App() {
         onOpenWhatsAppModal={() => setIsWhatsAppModalOpen(true)}
         onOpenPrivacyModal={() => setIsPrivacyModalOpen(true)}
         onOpenVerificationModal={() => setIsVerificationModalOpen(true)}
+        onOpenHallOfFame={() => setIsHallOfFameOpen(true)}
+        onOpenMilestoneRewards={() => setIsMilestonesOpen(true)}
         scrollToSection={scrollToSection}
       />
 
@@ -466,9 +585,9 @@ export default function App() {
         />
 
         {/* 3. Main Leaderboard Experience Container */}
-        <div id="leaderboard-main" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16">
+        <div id="leaderboard-main" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 pb-12 sm:pb-16">
           
-          {/* Simulation Controls Banner (Interactive Reviewer/User Sandbox) */}
+          {/* Simulation Controls Banner (Interactive Sandbox) */}
           <LiveSimulationBar
             onSimulateOvertake={handleSimulateOvertake}
             onSimulateClimb={handleSimulateClimb}
@@ -477,123 +596,182 @@ export default function App() {
             isZeroState={isZeroState}
           />
 
-          {/* 4. Individual / Team Toggle */}
+          {/* 4. Mode Toggle (Individual / Team / Campus Wars) */}
           <LeaderboardModeToggle
             mode={mode}
             onChange={setMode}
             individualCount={participants.length}
             teamCount={teams.length}
+            collegeCount={colleges.length}
           />
 
-          {/* 5. Top 3 Podium (Dominant Visual Hierarchy) */}
-          <Podium
-            mode={mode}
-            topParticipants={topParticipants}
-            topTeams={topTeams}
-            onSelectParticipant={(p) => {
-              setSelectedDetailItem(p);
-            }}
-            onSelectTeam={(t) => {
-              setSelectedDetailItem(t);
-            }}
-          />
-
-          {/* 6. YOUR RANK — THE MOTIVATION ENGINE */}
-          <div ref={yourRankRef}>
-            {isZeroState ? (
-              // Edge State: New User / ₹0 State
-              <div className="my-6 sm:my-8 rounded-2xl sm:rounded-3xl bg-[#111111] border-2 border-dashed border-[#BEFF00]/40 p-6 sm:p-8 text-center space-y-4 shadow-xl">
-                <div className="w-14 h-14 rounded-2xl bg-[#BEFF00]/10 border border-[#BEFF00]/30 flex items-center justify-center mx-auto text-[#BEFF00] font-mono text-2xl font-black">
-                  ₹0
-                </div>
-                <div className="space-y-1">
-                  <span className="text-xs font-mono uppercase text-[#BEFF00] font-bold tracking-wider">
-                    NEW HUSTLER ONBOARDING
-                  </span>
-                  <h3 className="font-heading text-2xl sm:text-3xl font-black uppercase text-white">
-                    No Rank Yet — Earn Your First ₹
-                  </h3>
-                  <p className="text-sm text-neutral-400 max-w-md mx-auto">
-                    You haven&apos;t logged verified income yet. Complete your first client gig or sell your first product to claim your rank on the leaderboard!
-                  </p>
-                </div>
-                <button
-                  onClick={() => setIsSubmitModalOpen(true)}
-                  className="px-6 py-3 rounded-xl bg-[#BEFF00] hover:bg-[#aee600] text-black font-extrabold text-sm tracking-tight shadow-md transition-all active:scale-95"
-                >
-                  Start Earning & Submit Proof →
-                </button>
-              </div>
-            ) : (
-              // Regular User Motivation Engine
-              <YourRank
-                userProfile={userProfile}
-                onOpenShareModal={() => setIsShareModalOpen(true)}
+          {/* If Campus Wars mode is active directly in toggle, show Campus Wars */}
+          {mode === 'college' ? (
+            <div className="my-6">
+              <CampusWars
+                colleges={colleges}
+                userCollege={userProfile.college}
+                userCollegeName={userProfile.college}
+                userCollegeRank={4}
+                userContributionINR={userProfile.income}
                 onOpenSubmitModal={() => setIsSubmitModalOpen(true)}
-                onOpenWhatsAppModal={() => setIsWhatsAppModalOpen(true)}
-                onOpenPrivacyModal={() => setIsPrivacyModalOpen(true)}
-                onViewLeaderboardRow={() => {
-                  const el = document.getElementById(`leaderboard-row-user-current`);
-                  if (el) {
-                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    el.classList.add('ring-2', 'ring-[#BEFF00]');
-                    setTimeout(() => el.classList.remove('ring-2', 'ring-[#BEFF00]'), 2000);
-                  }
+                onOpenShareModal={() => setIsShareModalOpen(true)}
+              />
+            </div>
+          ) : (
+            <>
+              {/* 5. Top 3 Podium */}
+              <Podium
+                mode={mode}
+                topParticipants={topParticipants}
+                topTeams={topTeams}
+                onSelectParticipant={(p) => {
+                  setSelectedDetailItem(p);
+                }}
+                onSelectTeam={(t) => {
+                  setSelectedDetailItem(t);
                 }}
               />
-            )}
+
+              {/* 6. YOUR RANK — THE MOTIVATION & RIVALRY ENGINE */}
+              <div ref={yourRankRef}>
+                {isZeroState ? (
+                  <div className="my-6 sm:my-8 rounded-2xl sm:rounded-3xl bg-[#111111] border-2 border-dashed border-[#BEFF00]/40 p-6 sm:p-8 text-center space-y-4 shadow-xl">
+                    <div className="w-14 h-14 rounded-2xl bg-[#BEFF00]/10 border border-[#BEFF00]/30 flex items-center justify-center mx-auto text-[#BEFF00] font-mono text-2xl font-black">
+                      ₹0
+                    </div>
+                    <div className="space-y-1">
+                      <span className="text-xs font-mono uppercase text-[#BEFF00] font-bold tracking-wider">
+                        NEW HUSTLER ONBOARDING
+                      </span>
+                      <h3 className="font-heading text-2xl sm:text-3xl font-black uppercase text-white">
+                        No Rank Yet — Earn Your First ₹
+                      </h3>
+                      <p className="text-sm text-neutral-400 max-w-md mx-auto">
+                        You haven&apos;t logged verified income yet. Complete your first client gig or sell your first product to claim your rank on the leaderboard!
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => setIsSubmitModalOpen(true)}
+                      className="px-6 py-3 rounded-xl bg-[#BEFF00] hover:bg-[#aee600] text-black font-extrabold text-sm tracking-tight shadow-md transition-all active:scale-95"
+                    >
+                      Start Earning & Submit Proof →
+                    </button>
+                  </div>
+                ) : (
+                  <YourRank
+                    userProfile={userProfile}
+                    onOpenShareModal={() => setIsShareModalOpen(true)}
+                    onOpenSubmitModal={() => setIsSubmitModalOpen(true)}
+                    onOpenWhatsAppModal={() => setIsWhatsAppModalOpen(true)}
+                    onOpenPrivacyModal={() => setIsPrivacyModalOpen(true)}
+                    onOpenMilestoneRewards={() => setIsMilestonesOpen(true)}
+                    onOpenChallengeFriend={() => setIsChallengeFriendOpen(true)}
+                    onOpenBounties={() => scrollToSection('bounty-board-section')}
+                    onOpenCaseStudy={(participantId) => setSelectedCaseStudyId(participantId || 'p-1')}
+                    onOpenRaceToTop10={() => scrollToSection('race-to-top-10-card')}
+                    onViewLeaderboardRow={() => {
+                      const el = document.getElementById(`leaderboard-row-user-current`);
+                      if (el) {
+                        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        el.classList.add('ring-2', 'ring-[#BEFF00]');
+                        setTimeout(() => el.classList.remove('ring-2', 'ring-[#BEFF00]'), 2000);
+                      }
+                    }}
+                  />
+                )}
+              </div>
+
+              {/* 7. Race to Top 10 Dynamic Progress & Contextual Ideas */}
+              <div id="race-to-top-10-card">
+                <RaceToTop10
+                  userProfile={userProfile}
+                  top10ThresholdINR={28400}
+                  onOpenSubmitModal={() => setIsSubmitModalOpen(true)}
+                  onOpenCaseStudy={(id) => setSelectedCaseStudyId(id || 'p-1')}
+                  onOpenBounties={() => scrollToSection('bounty-board-section')}
+                />
+              </div>
+
+              {/* 8. Category Filter */}
+              <CategoryFilter
+                selectedCategory={selectedCategory}
+                onSelectCategory={setSelectedCategory}
+                categoryCounts={categoryCounts}
+              />
+
+              {/* 9. Search & Filter Bar */}
+              <FilterBar
+                searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
+                selectedFilter={selectedFilter}
+                onSelectFilter={setSelectedFilter}
+                selectedTimeRange={timeRange}
+                onSelectTimeRange={setTimeRange}
+                selectedSort={selectedSort}
+                onSelectSort={setSelectedSort}
+                userCollege={userProfile.college}
+                totalResultsCount={processedItems.length}
+                onResetFilters={handleResetFilters}
+                isFiltered={isFiltered}
+              />
+
+              {/* 10. Interactive Table with Playbook Triggers */}
+              <LeaderboardTable
+                items={processedItems}
+                mode={mode}
+                onSelectParticipant={(p) => setSelectedDetailItem(p)}
+                onSelectTeam={(t) => setSelectedDetailItem(t)}
+                onOpenVerificationModal={() => setIsVerificationModalOpen(true)}
+                onOpenCaseStudy={(participantId) => setSelectedCaseStudyId(participantId)}
+              />
+            </>
+          )}
+
+          {/* 11. Campus Wars Section (Always prominent) */}
+          <div id="campus-wars-section">
+            <CampusWars
+              colleges={colleges}
+              userCollege={userProfile.college}
+              userCollegeName={userProfile.college}
+              userCollegeRank={4}
+              userContributionINR={userProfile.income}
+              onOpenSubmitModal={() => setIsSubmitModalOpen(true)}
+              onOpenShareModal={() => setIsShareModalOpen(true)}
+            />
           </div>
 
-          {/* 7. Category Filter ("Explore by hustle") */}
-          <CategoryFilter
-            selectedCategory={selectedCategory}
-            onSelectCategory={setSelectedCategory}
-            categoryCounts={categoryCounts}
-          />
+          {/* 12. Instant Gig / Bounty Board Section */}
+          <div id="bounty-board-section">
+            <BountyBoard
+              bounties={bounties}
+              onClaimBounty={handleClaimBounty}
+              onOpenSubmitModal={() => setIsSubmitModalOpen(true)}
+            />
+          </div>
 
-          {/* 8. Search & Functional Filter Bar */}
-          <FilterBar
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-            selectedFilter={selectedFilter}
-            onSelectFilter={setSelectedFilter}
-            selectedTimeRange={timeRange}
-            onSelectTimeRange={setTimeRange}
-            selectedSort={selectedSort}
-            onSelectSort={setSelectedSort}
-            userCollege={userProfile.college}
-            totalResultsCount={processedItems.length}
-            onResetFilters={handleResetFilters}
-            isFiltered={isFiltered}
-          />
+          {/* 13. Fastest Risers Module */}
+          <div id="fastest-risers-section">
+            <FastestRisers
+              onSelectRiser={(id) => {
+                const found = participants.find((p) => p.id === id);
+                if (found) setSelectedDetailItem(found);
+              }}
+            />
+          </div>
 
-          {/* 9. Interactive Leaderboard Table & Mobile Cards */}
-          <LeaderboardTable
-            items={processedItems}
-            mode={mode}
-            onSelectParticipant={(p) => setSelectedDetailItem(p)}
-            onSelectTeam={(t) => setSelectedDetailItem(t)}
-            onOpenVerificationModal={() => setIsVerificationModalOpen(true)}
-          />
-
-          {/* 10. Fastest Risers Module */}
-          <FastestRisers
-            onSelectRiser={(id) => {
-              const found = participants.find((p) => p.id === id);
-              if (found) setSelectedDetailItem(found);
-            }}
-          />
-
-          {/* 11. How Rankings Work & Trust Section */}
-          <RankingInfo
-            onOpenVerificationModal={() => setIsVerificationModalOpen(true)}
-            onOpenSubmitModal={() => setIsSubmitModalOpen(true)}
-          />
+          {/* 14. How Rankings Work & Trust Section */}
+          <div id="how-it-works-section">
+            <RankingInfo
+              onOpenVerificationModal={() => setIsVerificationModalOpen(true)}
+              onOpenSubmitModal={() => setIsSubmitModalOpen(true)}
+            />
+          </div>
 
         </div>
       </main>
 
-      {/* 12. Sticky Mobile/Desktop Rank Bar */}
+      {/* 15. Sticky Mobile/Desktop Rank Bar */}
       <StickyRankBar
         userProfile={userProfile}
         visible={showStickyRank && !isZeroState}
@@ -606,14 +784,15 @@ export default function App() {
         }}
       />
 
-      {/* 13. Dynamic Toast Alert */}
+      {/* 16. Dynamic Toast Alert */}
       <NotificationToast
         toast={activeToast}
         onDismiss={() => setActiveToast(null)}
       />
 
-      {/* 14. Modals & Dialogs */}
-      {/* Verification SLA & Trust Rules Modal */}
+      {/* 17. Modals & Drawers */}
+      
+      {/* Verification SLA & Trust Rules */}
       <VerificationModal
         isOpen={isVerificationModalOpen}
         onClose={() => setIsVerificationModalOpen(false)}
@@ -661,7 +840,64 @@ export default function App() {
         }}
       />
 
-      {/* 15. Footer */}
+      {/* "How I Earned It" Case Study Breakdown Drawer */}
+      <HowIEarnedItModal
+        participantId={selectedCaseStudyId}
+        isOpen={Boolean(selectedCaseStudyId)}
+        onClose={() => setSelectedCaseStudyId(null)}
+        onOpenSubmitModal={() => {
+          setSelectedCaseStudyId(null);
+          setIsSubmitModalOpen(true);
+        }}
+        caseStudies={MOCK_CASE_STUDIES}
+      />
+
+      {/* Milestone Rewards Drawer */}
+      <MilestoneRewardsDrawer
+        isOpen={isMilestonesOpen}
+        onClose={() => setIsMilestonesOpen(false)}
+        userProfile={userProfile}
+        userIncome={userProfile.income}
+        milestones={milestones}
+        onClaimReward={handleClaimReward}
+        onOpenSubmitModal={() => {
+          setIsMilestonesOpen(false);
+          setIsSubmitModalOpen(true);
+        }}
+      />
+
+      {/* 1v1 Challenge Friend via WhatsApp Modal */}
+      <ChallengeFriendModal
+        isOpen={isChallengeFriendOpen}
+        onClose={() => setIsChallengeFriendOpen(false)}
+        userProfile={userProfile}
+      />
+
+      {/* "While You Were Away" Login Movement Recap */}
+      <WhileYouWereAwayModal
+        isOpen={isWhileAwayOpen}
+        onClose={() => setIsWhileAwayOpen(false)}
+        recap={MOCK_WHILE_AWAY_RECAP}
+        data={MOCK_WHILE_AWAY_RECAP}
+        userProfile={userProfile}
+        onOpenSubmitModal={() => {
+          setIsWhileAwayOpen(false);
+          setIsSubmitModalOpen(true);
+        }}
+        onOpenWhatsAppModal={() => {
+          setIsWhileAwayOpen(false);
+          setIsWhatsAppModalOpen(true);
+        }}
+      />
+
+      {/* Hall of Fame (Past Waves Archive) */}
+      <HallOfFameModal
+        isOpen={isHallOfFameOpen}
+        onClose={() => setIsHallOfFameOpen(false)}
+        pastWaves={MOCK_PAST_WAVES}
+      />
+
+      {/* 18. Footer */}
       <Footer
         onOpenVerificationModal={() => setIsVerificationModalOpen(true)}
         onOpenWhatsAppModal={() => setIsWhatsAppModalOpen(true)}

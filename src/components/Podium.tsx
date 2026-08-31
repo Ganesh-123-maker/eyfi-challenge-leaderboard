@@ -26,17 +26,17 @@ export const Podium: React.FC<PodiumProps> = ({
   if (!first || !second || !third) return null;
 
   return (
-    <div className="relative pt-6 pb-4 sm:pt-10 sm:pb-8 my-4">
+    <div className="relative pt-2 pb-1 sm:pt-4 sm:pb-2 my-2 sm:my-3">
       {/* Background Rupee Glow */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
-        <div className="w-96 h-96 bg-[#BEFF00]/10 rounded-full blur-3xl"></div>
+        <div className="w-80 h-80 bg-[#BEFF00]/10 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="text-center mb-6 sm:mb-8">
-        <span className="text-xs font-mono uppercase tracking-widest text-[#BEFF00] font-bold">
+      <div className="text-center mb-3 sm:mb-5">
+        <span className="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-[#BEFF00] font-bold">
           The Hall of Hustlers
         </span>
-        <h3 className="text-2xl sm:text-3xl font-heading font-extrabold uppercase text-white mt-0.5">
+        <h3 className="text-xl sm:text-2xl md:text-3xl font-heading font-extrabold uppercase text-white mt-0.5">
           Top 3 Verified Earners
         </h3>
       </div>
@@ -52,7 +52,7 @@ export const Podium: React.FC<PodiumProps> = ({
             mode={mode}
             accentColor="border-neutral-400"
             rankBadgeColor="bg-neutral-300 text-black"
-            podiumHeight="h-32 sm:h-44 md:h-52"
+            podiumHeight="h-11 sm:h-14 md:h-16"
             onClick={() => {
               if (mode === 'individual') onSelectParticipant?.(second as Participant);
               else onSelectTeam?.(second as Team);
@@ -61,7 +61,7 @@ export const Podium: React.FC<PodiumProps> = ({
         </div>
 
         {/* RANK #1 (Lime / Gold Highlight, Center - Elevated) */}
-        <div className="order-2 flex flex-col items-center -mt-4 sm:-mt-8 z-10">
+        <div className="order-2 flex flex-col items-center -mt-3 sm:-mt-6 z-10">
           <PodiumCard
             rank={1}
             item={first}
@@ -69,7 +69,7 @@ export const Podium: React.FC<PodiumProps> = ({
             isFirst={true}
             accentColor="border-[#BEFF00] glow-lime"
             rankBadgeColor="bg-[#BEFF00] text-black shadow-lg font-black"
-            podiumHeight="h-44 sm:h-56 md:h-64"
+            podiumHeight="h-16 sm:h-20 md:h-24"
             onClick={() => {
               if (mode === 'individual') onSelectParticipant?.(first as Participant);
               else onSelectTeam?.(first as Team);
@@ -85,7 +85,7 @@ export const Podium: React.FC<PodiumProps> = ({
             mode={mode}
             accentColor="border-amber-700/60"
             rankBadgeColor="bg-amber-600 text-white"
-            podiumHeight="h-24 sm:h-36 md:h-44"
+            podiumHeight="h-7 sm:h-9 md:h-11"
             onClick={() => {
               if (mode === 'individual') onSelectParticipant?.(third as Participant);
               else onSelectTeam?.(third as Team);
@@ -238,16 +238,16 @@ const PodiumCard: React.FC<PodiumCardProps> = ({
 
       {/* Physical Elevated Podium Base Pillar */}
       <div
-        className={`w-full mt-3 rounded-t-xl sm:rounded-t-2xl border-t-2 border-x border-neutral-800/80 bg-gradient-to-b from-[#141414] to-[#0A0A0A] flex flex-col items-center justify-start pt-3 sm:pt-4 transition-all duration-300 group-hover:border-[#BEFF00]/50 ${podiumHeight} ${accentColor}`}
+        className={`w-full mt-2 sm:mt-2.5 rounded-t-lg sm:rounded-t-xl border-t-2 border-x border-neutral-800/80 bg-gradient-to-b from-[#141414] to-[#0A0A0A] flex flex-col items-center justify-center py-1.5 sm:py-2 transition-all duration-300 group-hover:border-[#BEFF00]/50 ${podiumHeight} ${accentColor}`}
       >
         <span
-          className={`font-heading text-2xl sm:text-4xl md:text-5xl font-black ${
-            isFirst ? 'text-[#BEFF00]' : 'text-neutral-500'
+          className={`font-heading text-xl sm:text-2xl md:text-3xl font-black leading-none ${
+            isFirst ? 'text-[#BEFF00]' : 'text-neutral-400'
           }`}
         >
           #{rank}
         </span>
-        <span className="text-[9px] sm:text-[11px] font-mono uppercase tracking-widest text-neutral-500 mt-1">
+        <span className="text-[8px] sm:text-[10px] font-mono uppercase tracking-wider text-neutral-500 mt-0.5">
           {isFirst ? 'CHAMPION' : rank === 2 ? 'RUNNER UP' : 'PODIUM'}
         </span>
       </div>

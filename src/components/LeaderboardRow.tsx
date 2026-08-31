@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUp, ArrowDown, Minus, Flame, Trophy, Sparkles, CheckCircle2, ChevronRight, User } from 'lucide-react';
+import { ArrowUp, ArrowDown, Minus, Flame, Trophy, Sparkles, CheckCircle2, ChevronRight, User, TrendingUp, BookOpen } from 'lucide-react';
 import { Participant, Team, LeaderboardType } from '../types';
 import { formatINR, formatRank } from '../utils/formatters';
 import { VerificationBadge } from './VerificationBadge';
@@ -10,6 +10,7 @@ interface LeaderboardRowProps {
   index: number;
   onSelect: () => void;
   onOpenVerificationModal: () => void;
+  onOpenCaseStudy?: (participantId: string) => void;
 }
 
 export const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
@@ -18,6 +19,7 @@ export const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
   index,
   onSelect,
   onOpenVerificationModal,
+  onOpenCaseStudy,
 }) => {
   const isIndividual = mode === 'individual';
   const participant = isIndividual ? (item as Participant) : null;
@@ -31,6 +33,7 @@ export const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
   const rankChange = item.rankChange;
   const badge = item.badge;
   const verificationStatus = item.verificationStatus;
+  const hasCaseStudy = isIndividual && ['p-1', 'p-2', 'p-14', 'user-current'].includes(participant?.id || '');
 
   return (
     <tr
@@ -127,6 +130,20 @@ export const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
                 >
                   {badge}
                 </span>
+              )}
+
+              {hasCaseStudy && onOpenCaseStudy && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onOpenCaseStudy(participant!.id);
+                  }}
+                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-indigo-950/60 hover:bg-indigo-900 border border-indigo-500/40 text-[9px] font-mono font-bold text-indigo-300 transition-colors"
+                  title="Read breakdown of how they earned this amount"
+                >
+                  <BookOpen className="w-2.5 h-2.5" />
+                  <span>Playbook</span>
+                </button>
               )}
             </div>
 

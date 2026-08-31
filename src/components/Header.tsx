@@ -6,6 +6,8 @@ interface HeaderProps {
   onOpenWhatsAppModal: () => void;
   onOpenPrivacyModal: () => void;
   onOpenVerificationModal: () => void;
+  onOpenHallOfFame?: () => void;
+  onOpenMilestoneRewards?: () => void;
   scrollToSection: (id: string) => void;
 }
 
@@ -14,6 +16,8 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenWhatsAppModal,
   onOpenPrivacyModal,
   onOpenVerificationModal,
+  onOpenHallOfFame,
+  onOpenMilestoneRewards,
   scrollToSection,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -57,14 +61,7 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-7 text-sm font-medium text-neutral-300">
-          <button
-            onClick={() => scrollToSection('hero-section')}
-            className="hover:text-[#BEFF00] transition-colors focus:outline-none focus:text-[#BEFF00]"
-            id="nav-challenge"
-          >
-            Challenge
-          </button>
+        <nav className="hidden lg:flex items-center gap-6 text-sm font-medium text-neutral-300">
           <button
             onClick={() => scrollToSection('leaderboard-main')}
             className="text-[#BEFF00] font-semibold flex items-center gap-1 hover:text-[#aee600] transition-colors focus:outline-none"
@@ -76,19 +73,36 @@ export const Header: React.FC<HeaderProps> = ({
             </span>
           </button>
           <button
-            onClick={() => scrollToSection('fastest-risers-section')}
+            onClick={() => scrollToSection('campus-wars-section')}
             className="hover:text-[#BEFF00] transition-colors focus:outline-none focus:text-[#BEFF00]"
-            id="nav-risers"
+            id="nav-campus-wars"
           >
-            Fastest Risers
+            Campus Wars
           </button>
           <button
-            onClick={() => scrollToSection('how-it-works-section')}
-            className="hover:text-[#BEFF00] transition-colors focus:outline-none focus:text-[#BEFF00]"
-            id="nav-how-it-works"
+            onClick={() => scrollToSection('bounty-board-section')}
+            className="hover:text-[#BEFF00] transition-colors flex items-center gap-1 focus:outline-none focus:text-[#BEFF00]"
+            id="nav-bounties"
           >
-            How It Works
+            <Zap className="w-3.5 h-3.5 text-[#BEFF00] fill-[#BEFF00]" />
+            Bounties
           </button>
+          <button
+            onClick={() => scrollToSection('race-to-top-10-card')}
+            className="hover:text-[#BEFF00] transition-colors focus:outline-none focus:text-[#BEFF00]"
+            id="nav-top10"
+          >
+            Race to Top 10
+          </button>
+          {onOpenHallOfFame && (
+            <button
+              onClick={onOpenHallOfFame}
+              className="hover:text-amber-300 transition-colors focus:outline-none text-neutral-400"
+              id="nav-hall-of-fame"
+            >
+              Hall of Fame
+            </button>
+          )}
           <button
             onClick={onOpenVerificationModal}
             className="hover:text-[#BEFF00] transition-colors flex items-center gap-1 focus:outline-none"
@@ -117,7 +131,7 @@ export const Header: React.FC<HeaderProps> = ({
             id="btn-start-earning"
           >
             <Zap className="w-3.5 h-3.5 fill-black" />
-            <span>Start Earning</span>
+            <span>Submit ₹ Proof</span>
             <ArrowUpRight className="w-3.5 h-3.5 hidden sm:inline" />
           </button>
 
@@ -139,15 +153,6 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="grid grid-cols-2 gap-2 text-sm font-medium">
             <button
               onClick={() => {
-                scrollToSection('hero-section');
-                setMobileMenuOpen(false);
-              }}
-              className="p-2.5 text-left rounded-lg bg-neutral-900 text-neutral-200 hover:text-[#BEFF00]"
-            >
-              Challenge
-            </button>
-            <button
-              onClick={() => {
                 scrollToSection('leaderboard-main');
                 setMobileMenuOpen(false);
               }}
@@ -157,35 +162,45 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
             <button
               onClick={() => {
-                scrollToSection('fastest-risers-section');
+                scrollToSection('campus-wars-section');
                 setMobileMenuOpen(false);
               }}
               className="p-2.5 text-left rounded-lg bg-neutral-900 text-neutral-200 hover:text-[#BEFF00]"
             >
-              Fastest Risers
+              Campus Wars
             </button>
             <button
               onClick={() => {
-                scrollToSection('how-it-works-section');
+                scrollToSection('bounty-board-section');
                 setMobileMenuOpen(false);
               }}
               className="p-2.5 text-left rounded-lg bg-neutral-900 text-neutral-200 hover:text-[#BEFF00]"
             >
-              How It Works
+              ⚡ Bounties
+            </button>
+            <button
+              onClick={() => {
+                scrollToSection('race-to-top-10-card');
+                setMobileMenuOpen(false);
+              }}
+              className="p-2.5 text-left rounded-lg bg-neutral-900 text-neutral-200 hover:text-[#BEFF00]"
+            >
+              Race to Top 10
             </button>
           </div>
 
           <div className="pt-2 border-t border-neutral-800/80 flex items-center justify-between text-xs text-neutral-400">
-            <button
-              onClick={() => {
-                onOpenVerificationModal();
-                setMobileMenuOpen(false);
-              }}
-              className="flex items-center gap-1.5 hover:text-white"
-            >
-              <ShieldCheck className="w-4 h-4 text-[#BEFF00]" />
-              Verification Rules
-            </button>
+            {onOpenHallOfFame && (
+              <button
+                onClick={() => {
+                  onOpenHallOfFame();
+                  setMobileMenuOpen(false);
+                }}
+                className="flex items-center gap-1.5 text-amber-300"
+              >
+                🏆 Hall of Fame
+              </button>
+            )}
             <button
               onClick={() => {
                 onOpenWhatsAppModal();

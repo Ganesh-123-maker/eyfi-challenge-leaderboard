@@ -10,6 +10,7 @@ interface LeaderboardTableProps {
   onSelectParticipant?: (p: Participant) => void;
   onSelectTeam?: (t: Team) => void;
   onOpenVerificationModal: () => void;
+  onOpenCaseStudy?: (participantId: string) => void;
   isLoading?: boolean;
 }
 
@@ -19,6 +20,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
   onSelectParticipant,
   onSelectTeam,
   onOpenVerificationModal,
+  onOpenCaseStudy,
   isLoading = false,
 }) => {
   const [displayLimit, setDisplayLimit] = useState(25);
@@ -79,6 +81,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
                     else onSelectTeam?.(item as Team);
                   }}
                   onOpenVerificationModal={onOpenVerificationModal}
+                  onOpenCaseStudy={onOpenCaseStudy}
                 />
               ))}
             </tbody>

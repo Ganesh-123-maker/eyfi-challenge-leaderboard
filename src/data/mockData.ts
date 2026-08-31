@@ -1,4 +1,4 @@
-import { Participant, Team, UserRankProfile } from '../types';
+import { Participant, Team, UserRankProfile, CollegeRanking, Bounty, CaseStudy, MilestoneReward, PastWave, WhileAwayRecapData } from '../types';
 
 export const INITIAL_USER_PROFILE: UserRankProfile = {
   id: 'user-current',
@@ -12,7 +12,11 @@ export const INITIAL_USER_PROFILE: UserRankProfile = {
   rankChange: 5,
   gapToNextRank: 850,
   nextRankParticipantName: 'Priya Sharma',
+  nextRankParticipantAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+  nextRankParticipantCollege: 'SRM University',
   nextRankNumber: 26,
+  gapToTop10: 27050,
+  top10CutoffIncome: 39500,
   category: 'freelancing',
   verificationStatus: 'verified',
   privacySetting: 'short',
@@ -20,6 +24,9 @@ export const INITIAL_USER_PROFILE: UserRankProfile = {
   notificationOptIn: true,
   notificationPhone: '+91 98765 43210',
   notificationFrequency: 'instant',
+  streakDays: 4,
+  streakActive: true,
+  unlockedMilestonesCount: 2,
 };
 
 export const MOCK_PARTICIPANTS: Participant[] = [
@@ -989,3 +996,430 @@ export const HOW_IT_WORKS_STEPS = [
     desc: 'Top earners unlock cash prize pools, investor introductions, fast-track startup grants, and official EYFI trophies.',
   }
 ];
+
+export const MOCK_COLLEGES: CollegeRanking[] = [
+  {
+    id: 'col-1',
+    college: 'IIT Bombay',
+    collegeShort: 'IIT-B',
+    totalIncome: 226900,
+    totalIncomeThisWeek: 64000,
+    totalIncomeToday: 25000,
+    participantCount: 24,
+    rank: 1,
+    previousRank: 1,
+    rankChange: 0,
+    topContributorName: 'Kabir Verma',
+    topContributorAvatar: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&auto=format&fit=crop&q=80',
+    topContributorAmount: 148500,
+    badge: '👑 DOMINATING',
+  },
+  {
+    id: 'col-2',
+    college: 'BITS Pilani',
+    collegeShort: 'BITS',
+    totalIncome: 154200,
+    totalIncomeThisWeek: 42000,
+    totalIncomeToday: 16500,
+    participantCount: 18,
+    rank: 2,
+    previousRank: 3,
+    rankChange: 1,
+    topContributorName: 'Tanvi Deshmukh',
+    topContributorAvatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80',
+    topContributorAmount: 112800,
+    badge: '🔥 ON FIRE',
+  },
+  {
+    id: 'col-3',
+    college: 'IIT Delhi',
+    collegeShort: 'IIT-D',
+    totalIncome: 122850,
+    totalIncomeThisWeek: 35200,
+    totalIncomeToday: 11200,
+    participantCount: 21,
+    rank: 3,
+    previousRank: 2,
+    rankChange: -1,
+    topContributorName: 'Ishaan Gupta',
+    topContributorAvatar: 'https://images.unsplash.com/photo-1480429370139-e0132c086e2a?w=150&auto=format&fit=crop&q=80',
+    topContributorAmount: 26500,
+    badge: 'YOUR COLLEGE',
+    isUserCollege: true,
+  },
+  {
+    id: 'col-4',
+    college: 'NIT Trichy',
+    collegeShort: 'NITT',
+    totalIncome: 108400,
+    totalIncomeThisWeek: 31000,
+    totalIncomeToday: 9500,
+    participantCount: 12,
+    rank: 4,
+    previousRank: 5,
+    rankChange: 1,
+    topContributorName: 'Devansh Nair',
+    topContributorAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
+    topContributorAmount: 94600,
+  },
+  {
+    id: 'col-5',
+    college: 'DTU Delhi',
+    collegeShort: 'DTU',
+    totalIncome: 86400,
+    totalIncomeThisWeek: 23500,
+    totalIncomeToday: 6200,
+    participantCount: 15,
+    rank: 5,
+    previousRank: 4,
+    rankChange: -1,
+    topContributorName: 'Rahul Kumar',
+    topContributorAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80',
+    topContributorAmount: 69200,
+  },
+  {
+    id: 'col-6',
+    college: 'SRM University',
+    collegeShort: 'SRM',
+    totalIncome: 72200,
+    totalIncomeThisWeek: 18700,
+    totalIncomeToday: 5300,
+    participantCount: 16,
+    rank: 6,
+    previousRank: 8,
+    rankChange: 2,
+    topContributorName: 'Sanya Malhotra',
+    topContributorAvatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=150&auto=format&fit=crop&q=80',
+    topContributorAmount: 58900,
+    badge: '⚡ FASTEST RISER',
+  },
+  {
+    id: 'col-7',
+    college: 'IIT Kharagpur',
+    collegeShort: 'IIT-KGP',
+    totalIncome: 64100,
+    totalIncomeThisWeek: 16200,
+    totalIncomeToday: 3800,
+    participantCount: 14,
+    rank: 7,
+    previousRank: 7,
+    rankChange: 0,
+    topContributorName: 'Arjun Mehta',
+    topContributorAvatar: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&auto=format&fit=crop&q=80',
+    topContributorAmount: 52400,
+  },
+  {
+    id: 'col-8',
+    college: 'St. Xavier\'s College',
+    collegeShort: 'Xavier\'s',
+    totalIncome: 51900,
+    totalIncomeThisWeek: 13800,
+    totalIncomeToday: 3200,
+    participantCount: 9,
+    rank: 8,
+    previousRank: 6,
+    rankChange: -2,
+    topContributorName: 'Meera Iyer',
+    topContributorAvatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80',
+    topContributorAmount: 47800,
+  }
+];
+
+export const MOCK_BOUNTIES: Bounty[] = [
+  {
+    id: 'bounty-1',
+    title: 'Build Dark-mode Landing Page in Next.js & Tailwind',
+    reward: 8500,
+    category: 'building',
+    sponsorName: 'HyperGrowth Labs (YC W24)',
+    deadline: '2 days left',
+    spotsLeft: 2,
+    difficulty: 'Intermediate',
+    tags: ['Next.js', 'Tailwind CSS', 'Framer Motion'],
+    description: 'Create a high-converting responsive SaaS product landing page based on our Figma design specifications with smooth micro-interactions.',
+    deliverable: 'GitHub Repository + Live Vercel Preview URL with Lighthouse 90+ score',
+  },
+  {
+    id: 'bounty-2',
+    title: '3 Viral Instagram Reels for FinTech App',
+    reward: 4500,
+    category: 'content',
+    sponsorName: 'Rupiah NeoBank',
+    deadline: '24 hours left',
+    spotsLeft: 3,
+    difficulty: 'Beginner',
+    tags: ['Reels', 'CapCut', 'Scriptwriting'],
+    description: 'Hook college students on personal budgeting basics with snappy, relatable meme-style vertical video edits with animated subtitles.',
+    deliverable: '3 finished 1080x1920 MP4 clips + captions with trending audio hooks',
+  },
+  {
+    id: 'bounty-3',
+    title: '1-on-1 JEE Physics Doubt Clearing (4 Hours)',
+    reward: 3200,
+    category: 'tutoring',
+    sponsorName: 'Zenith EdTech Cohort',
+    deadline: '3 days left',
+    spotsLeft: 4,
+    difficulty: 'Intermediate',
+    tags: ['JEE Advanced', 'Mechanics', 'Electrostatics'],
+    description: 'Conduct interactive Google Meet doubt resolution sessions for Class 12 aspirants solving past 5-year PYQs.',
+    deliverable: 'Completed session logs signed off by student coordinator',
+  },
+  {
+    id: 'bounty-4',
+    title: 'Modern Minimalist Brand Logo & Identity System',
+    reward: 6000,
+    category: 'freelancing',
+    sponsorName: 'Aura Artisan Coffee',
+    deadline: '4 days left',
+    spotsLeft: 1,
+    difficulty: 'Intermediate',
+    tags: ['Figma', 'Illustrator', 'Branding'],
+    description: 'Design complete logo kit (primary, secondary, favicon), color tokens, and coffee packaging mockups.',
+    deliverable: 'Figma link with exportable SVG/PNG assets + Brand Guidelines PDF',
+  },
+  {
+    id: 'bounty-5',
+    title: 'College Fest Graphic T-Shirt Merch Batch (50 Units)',
+    reward: 12000,
+    category: 'selling',
+    sponsorName: 'Techspardha Fest Committee',
+    deadline: '5 days left',
+    spotsLeft: 2,
+    difficulty: 'Advanced',
+    tags: ['Screen Printing', 'Apparel', 'Vendor Ops'],
+    description: 'Source 220 GSM heavyweight cotton oversized tees with 4-color screen print for executive council members.',
+    deliverable: 'Sample proof + delivery receipt from verified supplier invoice',
+  },
+  {
+    id: 'bounty-6',
+    title: 'Automated Telegram / Discord Bot for Deal Alerts',
+    reward: 5500,
+    category: 'building',
+    sponsorName: 'LootDeals India',
+    deadline: '3 days left',
+    spotsLeft: 3,
+    difficulty: 'Intermediate',
+    tags: ['Python', 'Node.js', 'Telegram API'],
+    description: 'Scrape e-commerce price drops every 60 seconds and broadcast formatted affiliate cards to 20k-member channels.',
+    deliverable: 'Dockerized Python script or Railway.app hosted webhook bot',
+  }
+];
+
+export const MOCK_CASE_STUDIES: Record<string, CaseStudy> = {
+  'p-1': {
+    id: 'cs-1',
+    participantId: 'p-1',
+    name: 'Kabir Verma',
+    college: 'IIT Bombay',
+    avatar: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&auto=format&fit=crop&q=80',
+    hustleTitle: 'B2B SaaS Dev & Automation',
+    verifiedAmount: 148500,
+    category: 'building',
+    storySummary: 'Built custom Zapier/Make.com workflows and Next.js internal portals for 3 US-based real estate boutique agencies.',
+    howTheyAcquiredClient: 'Found agency founders complaining about manual CRM data entry on Twitter/X, sent loom video audits solving their specific bottleneck.',
+    toolsUsed: ['Next.js', 'Tailwind', 'Make.com', 'Supabase', 'Stripe'],
+    timeToFirstRupee: '6 days into the challenge',
+    keyPlaybookTips: [
+      'Never send cold emails asking for work; send a 90-second Loom showing how you fixed an issue on their live site.',
+      'Price by value and outcome rather than hourly rates (e.g. ₹40k/workflow vs ₹800/hr).',
+      'Always request 50% upfront payment via Stripe invoice before delivering the code.'
+    ],
+    proofImages: [
+      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&auto=format&fit=crop&q=80',
+      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&auto=format&fit=crop&q=80'
+    ],
+    clientTestimonial: '"Kabir automated 14 hours of our weekly underwriting process in less than 48 hours. Incredible speed and reliability."'
+  },
+  'p-2': {
+    id: 'cs-2',
+    participantId: 'p-2',
+    name: 'Tanvi Deshmukh',
+    college: 'BITS Pilani',
+    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80',
+    hustleTitle: 'Product Design & Framer Sites',
+    verifiedAmount: 112800,
+    category: 'freelancing',
+    storySummary: 'Redesigned 4 early-stage seed startups’ landing pages and converted them into interactive Framer sites in 2 weeks.',
+    howTheyAcquiredClient: 'Remade existing YC startup landing pages as speculative redesigns and tagged the founders on LinkedIn.',
+    toolsUsed: ['Figma', 'Framer', 'Spline 3D', 'Lottie'],
+    timeToFirstRupee: '3 days after posting first redesign',
+    keyPlaybookTips: [
+      'Framer allows you to charge for both Design AND Development without writing backend code.',
+      'Offer quick turnaround (under 72 hours) — founders love velocity.',
+      'Include mobile optimization and CMS setup as paid add-ons.'
+    ],
+    proofImages: [
+      'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=400&auto=format&fit=crop&q=80'
+    ],
+    clientTestimonial: '"Tanvi took our conversion rate from 1.8% to 5.4% in 4 days. Best designer we have worked with."'
+  },
+  'p-14': {
+    id: 'cs-14',
+    participantId: 'p-14',
+    name: 'Aaditya Sen',
+    college: 'MIT Manipal',
+    avatar: 'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=150&auto=format&fit=crop&q=80',
+    hustleTitle: 'AI Lead Gen Tool for Real Estate',
+    verifiedAmount: 31200,
+    category: 'building',
+    storySummary: 'Spun up an automated scraper + Gemini API summarizer for property brokers that climbed him 18 ranks today.',
+    howTheyAcquiredClient: 'Walked into local real estate consultancy offices in Manipal and showed a live demo on his phone.',
+    toolsUsed: ['Python', 'Gemini API', 'Streamlit', 'WhatsApp Cloud API'],
+    timeToFirstRupee: '24 hours after MVP',
+    keyPlaybookTips: [
+      'Local businesses in Tier 2/3 cities pay instant cash for software that gets them leads.',
+      'Show, don\'t tell: A working prototype on your phone closes deals immediately.'
+    ],
+    proofImages: [
+      'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=400&auto=format&fit=crop&q=80'
+    ]
+  },
+  'user-current': {
+    id: 'cs-user',
+    participantId: 'user-current',
+    name: 'Aarav Sharma',
+    college: 'IIT Delhi',
+    avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80',
+    hustleTitle: 'Freelance Webflow & Copywriting',
+    verifiedAmount: 12450,
+    category: 'freelancing',
+    storySummary: 'Closed 2 boutique clients for Webflow responsive portfolio sites and marketing copy optimization.',
+    howTheyAcquiredClient: 'Direct outreach on IndieHackers and Twitter DMs showing prior portfolio case studies.',
+    toolsUsed: ['Webflow', 'Figma', 'Grammarly', 'UPI / Razorpay'],
+    timeToFirstRupee: 'Day 5 of the challenge',
+    keyPlaybookTips: [
+      'Bundle copywriting with website setup so clients don\'t have to hire two people.',
+      'Ask every satisfied client for 1 referral intro with an incentive.'
+    ],
+    proofImages: [
+      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&auto=format&fit=crop&q=80'
+    ]
+  }
+};
+
+export const MOCK_MILESTONES: MilestoneReward[] = [
+  {
+    id: 'milestone-1',
+    targetIncome: 1000,
+    title: 'First Rupee Club',
+    rewardDescription: 'Official EYFI First Hustler Digital Certificate + Discord VIP Channel',
+    iconName: 'Sparkles',
+    claimed: true,
+    unlocked: true,
+    badgeText: 'UNLOCKED',
+  },
+  {
+    id: 'milestone-2',
+    targetIncome: 10000,
+    title: '10K Club Member',
+    rewardDescription: 'Exclusive EYFI Acid-Lime Hoodie & Sticker Pack delivered to your campus',
+    iconName: 'Package',
+    claimed: false,
+    unlocked: true,
+    badgeText: 'CLAIM PERK',
+  },
+  {
+    id: 'milestone-3',
+    targetIncome: 25000,
+    title: '25K Heavyweight',
+    rewardDescription: 'Fast-Track Venture Capital & Angel Investor 1-on-1 Pitch Desk Review',
+    iconName: 'Briefcase',
+    claimed: false,
+    unlocked: false,
+    badgeText: '₹12,550 MORE TO GO',
+  },
+  {
+    id: 'milestone-4',
+    targetIncome: 50000,
+    title: 'Top Tier 50K Grant Pool',
+    rewardDescription: 'Access to equity-free ₹50,000 micro-grants for scaling your hustle',
+    iconName: 'Award',
+    claimed: false,
+    unlocked: false,
+    badgeText: 'LOCKED',
+  },
+  {
+    id: 'milestone-5',
+    targetIncome: 100000,
+    title: 'Six-Figure Titan',
+    rewardDescription: 'All-expenses-paid EYFI Founder Retreat in Goa + Bespoke Trophy',
+    iconName: 'Crown',
+    claimed: false,
+    unlocked: false,
+    badgeText: 'LOCKED',
+  }
+];
+
+export const MOCK_PAST_WAVES: PastWave[] = [
+  {
+    id: 'wave-00',
+    name: 'Wave 00 · Winter Alpha (Jan 2026)',
+    period: 'Jan 1 – Jan 31, 2026',
+    totalPool: '₹1,50,000',
+    totalVerifiedEarnings: '₹8,92,000',
+    participantsCount: 1420,
+    champion: {
+      name: 'Sahil Kothari',
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+      college: 'IIT Roorkee',
+      income: 168400,
+      hustle: 'Shopify Dropshipping Custom Store Dev',
+    },
+    runnerUp: {
+      name: 'Pooja Varma',
+      avatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=150&auto=format&fit=crop&q=80',
+      college: 'BITS Goa',
+      income: 134200,
+    },
+    thirdPlace: {
+      name: 'Aditya Birla',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
+      college: 'NIT Surathkal',
+      income: 98500,
+    }
+  },
+  {
+    id: 'wave-pilot',
+    name: 'Pilot Wave · Campus Blitz (Nov 2025)',
+    period: 'Nov 15 – Dec 15, 2025',
+    totalPool: '₹1,00,000',
+    totalVerifiedEarnings: '₹4,76,000',
+    participantsCount: 850,
+    champion: {
+      name: 'Ritika Sharma',
+      avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80',
+      college: 'Delhi University',
+      income: 104500,
+      hustle: 'Fiverr Ghostwriting & SEO Sprints',
+    },
+    runnerUp: {
+      name: 'Nikhil Prabhu',
+      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80',
+      college: 'IIT Madras',
+      income: 82000,
+    },
+    thirdPlace: {
+      name: 'Shreya Ghosh',
+      avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80',
+      college: 'Jadavpur Univ',
+      income: 69400,
+    }
+  }
+];
+
+export const MOCK_WHILE_AWAY_RECAP: WhileAwayRecapData = {
+  hoursAway: 14,
+  overtakenCount: 2,
+  climbedCount: 5,
+  newVerifiedVolume: 84500,
+  collegeRankChange: 1,
+  collegeName: 'IIT Delhi',
+  newBountiesCount: 3,
+  closestRival: {
+    name: 'Priya Sharma',
+    gap: 850,
+    rank: 26,
+  }
+};
+
