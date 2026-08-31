@@ -1,0 +1,6 @@
+{
+  "name": "EYFI Leaderboard",
+  "description": "Live income leaderboard and motivation engine for the EYFI Student Earning Challenge.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
