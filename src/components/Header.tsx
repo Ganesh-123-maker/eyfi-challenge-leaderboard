@@ -25,7 +25,7 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header id="main-header" className="sticky top-0 z-40 w-full border-b border-neutral-900/80 bg-[#0A0A0A]/90 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        
+        {/* Brand Logo */}
         <div className="flex items-center gap-3">
           <a
             href="#"
@@ -50,7 +50,7 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
           </a>
 
-          
+          {/* Live Badge */}
           <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#141414] border border-neutral-800 text-xs font-semibold text-neutral-300">
             <span className="w-2 h-2 rounded-full bg-[#BEFF00] animate-ping"></span>
             <span className="w-2 h-2 rounded-full bg-[#BEFF00] -ml-3.5"></span>
@@ -60,7 +60,7 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        
+        {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-6 text-sm font-medium text-neutral-300">
           <button
             onClick={() => scrollToSection('leaderboard-main')}
@@ -113,7 +113,7 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
         </nav>
 
-        
+        {/* Action Buttons */}
         <div className="flex items-center gap-2.5 sm:gap-3">
           <button
             onClick={onOpenWhatsAppModal}
@@ -135,7 +135,7 @@ export const Header: React.FC<HeaderProps> = ({
             <ArrowUpRight className="w-3.5 h-3.5 hidden sm:inline" />
           </button>
 
-          
+          {/* Mobile menu toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="lg:hidden p-2 rounded-lg text-neutral-400 hover:text-white hover:bg-neutral-900 border border-neutral-800"
@@ -147,7 +147,7 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
 
-      
+      {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
         <div className="lg:hidden border-b border-neutral-800 bg-[#0E0E0E] px-4 py-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
           <div className="grid grid-cols-2 gap-2 text-sm font-medium">

@@ -44,7 +44,7 @@ export const LiveSimulationBar: React.FC<LiveSimulationBarProps> = ({
 
       {!collapsed && (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 pt-1">
-          
+          {/* Simulate Overtake */}
           <button
             onClick={onSimulateOvertake}
             className="px-3.5 py-2.5 rounded-xl bg-[#161616] hover:bg-[#1a1a1a] active:scale-95 text-xs font-mono font-bold text-amber-300 border border-amber-500/30 hover:border-amber-500/60 flex items-center justify-center gap-2 transition-all shadow-sm"
@@ -54,7 +54,7 @@ export const LiveSimulationBar: React.FC<LiveSimulationBarProps> = ({
             <span>Simulate Overtaken (Drop to #28)</span>
           </button>
 
-          
+          {/* Simulate Climb */}
           <button
             onClick={onSimulateClimb}
             className="px-3.5 py-2.5 rounded-xl bg-[#161616] hover:bg-[#1a1a1a] active:scale-95 text-xs font-mono font-bold text-[#BEFF00] border border-[#BEFF00]/30 hover:border-[#BEFF00]/60 flex items-center justify-center gap-2 transition-all shadow-sm"
@@ -64,7 +64,7 @@ export const LiveSimulationBar: React.FC<LiveSimulationBarProps> = ({
             <span>Simulate +₹2,500 (Climb to #24)</span>
           </button>
 
-          
+          {/* Toggle Zero / New User State */}
           <button
             onClick={onToggleZeroState}
             className={`px-3.5 py-2.5 rounded-xl text-xs font-mono font-bold border flex items-center justify-center gap-2 transition-all shadow-sm ${
@@ -78,7 +78,7 @@ export const LiveSimulationBar: React.FC<LiveSimulationBarProps> = ({
             <span>{isZeroState ? 'Exit ₹0 New User' : 'Test ₹0 New User State'}</span>
           </button>
 
-          
+          {/* Reset */}
           <button
             onClick={onResetSimulation}
             className="px-3.5 py-2.5 rounded-xl bg-[#161616] hover:bg-[#1a1a1a] text-xs font-mono font-bold text-neutral-400 hover:text-white border border-neutral-800 flex items-center justify-center gap-2 transition-all"

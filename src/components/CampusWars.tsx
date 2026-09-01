@@ -52,7 +52,7 @@ export const CampusWars: React.FC<CampusWarsProps> = ({
   return (
     <div id="campus-wars-section" className="space-y-6 my-8">
       
-      
+      {/* Top Banner: Campus Pride Duel */}
       <div className="bento-card p-5 sm:p-7 md:p-8 bg-gradient-to-r from-[#141414] via-[#111111] to-[#0D0D0D] border-2 border-[#BEFF00]/30 shadow-[0_0_35px_rgba(190,255,0,0.08)] relative overflow-hidden">
         <div className="absolute top-0 right-0 w-72 h-72 bg-[#BEFF00]/10 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -70,7 +70,7 @@ export const CampusWars: React.FC<CampusWarsProps> = ({
             </p>
           </div>
 
-          
+          {/* Your Campus Spotlight Card */}
           {userCollegeData && (
             <div className="p-4 rounded-2xl bg-[#161616] border border-[#BEFF00]/50 shadow-md min-w-[260px] space-y-2">
               <div className="flex items-center justify-between text-xs font-mono">
@@ -102,7 +102,7 @@ export const CampusWars: React.FC<CampusWarsProps> = ({
           )}
         </div>
 
-        
+        {/* Top 3 Campus Matchup Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
           {colleges.slice(0, 3).map((col, idx) => (
             <div
@@ -136,10 +136,10 @@ export const CampusWars: React.FC<CampusWarsProps> = ({
 
       </div>
 
-      
+      {/* College Standings Table */}
       <div className="overflow-hidden rounded-2xl border border-neutral-800 bg-[#111111] shadow-xl">
         
-        
+        {/* Table Header Bar */}
         <div className="p-4 sm:p-5 border-b border-neutral-800 flex flex-wrap items-center justify-between gap-3 bg-[#141414]">
           <div className="flex items-center gap-2 font-mono text-xs font-bold text-neutral-300">
             <School className="w-4 h-4 text-[#BEFF00]" />
@@ -157,7 +157,7 @@ export const CampusWars: React.FC<CampusWarsProps> = ({
           </div>
         </div>
 
-        
+        {/* Table Content */}
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
@@ -272,7 +272,7 @@ export const CampusWars: React.FC<CampusWarsProps> = ({
           </table>
         </div>
 
-        
+        {/* Footer Action */}
         <div className="p-4 sm:p-5 border-t border-neutral-800 bg-[#141414] flex flex-wrap items-center justify-between gap-3">
           <div className="text-xs text-neutral-400 font-mono">
             Want to boost your college&apos;s rank? Log your client invoices or sell products.

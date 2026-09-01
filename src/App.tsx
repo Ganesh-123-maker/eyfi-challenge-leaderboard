@@ -112,7 +112,7 @@ import {
 } from './data/mockData';
 
 export default function App() {
-
+  // State: Data Collections
   const [participants, setParticipants] = useState<Participant[]>(MOCK_PARTICIPANTS);
   const [teams, setTeams] = useState<Team[]>(MOCK_TEAMS);
   const [colleges, setColleges] = useState<CollegeRanking[]>(MOCK_COLLEGES);
@@ -120,7 +120,7 @@ export default function App() {
   const [milestones, setMilestones] = useState<MilestoneReward[]>(MOCK_MILESTONES);
   const [userProfile, setUserProfile] = useState<UserRankProfile>(INITIAL_USER_PROFILE);
 
-
+  // State: Leaderboard Filters & View
   const [mode, setMode] = useState<LeaderboardType>('individual');
   const [timeRange, setTimeRange] = useState<TimeRange>('overall');
   const [selectedCategory, setSelectedCategory] = useState<Category>('all');
@@ -128,7 +128,7 @@ export default function App() {
   const [selectedSort, setSelectedSort] = useState<SortOption>('rank');
   const [searchQuery, setSearchQuery] = useState('');
 
-
+  // Modals & Drawers
   const [isVerificationModalOpen, setIsVerificationModalOpen] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [isWhatsAppModalOpen, setIsWhatsAppModalOpen] = useState(false);
@@ -136,28 +136,28 @@ export default function App() {
   const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
   const [selectedDetailItem, setSelectedDetailItem] = useState<Participant | Team | null>(null);
   
-
+  // Upgraded Feature Modals
   const [isWhileAwayOpen, setIsWhileAwayOpen] = useState(false);
   const [isMilestonesOpen, setIsMilestonesOpen] = useState(false);
   const [isChallengeFriendOpen, setIsChallengeFriendOpen] = useState(false);
   const [isHallOfFameOpen, setIsHallOfFameOpen] = useState(false);
   const [selectedCaseStudyId, setSelectedCaseStudyId] = useState<string | null>(null);
 
-
+  // Sticky Rank Bar Visibility
   const [showStickyRank, setShowStickyRank] = useState(false);
   const yourRankRef = useRef<HTMLDivElement>(null);
 
-
+  // Toast System
   const [activeToast, setActiveToast] = useState<ToastMessage | null>(null);
 
-
+  // Simulation State Flag (e.g. Zero-earning new user)
   const [isZeroState, setIsZeroState] = useState(false);
 
-
+  // Check While You Were Away on initial session start
   useEffect(() => {
     const hasSeenAway = sessionStorage.getItem('eyfi_seen_away_recap');
     if (!hasSeenAway) {
-
+      // Show subtle auto-popup after 1.5s
       const timer = setTimeout(() => {
         setIsWhileAwayOpen(true);
         sessionStorage.setItem('eyfi_seen_away_recap', 'true');
@@ -166,7 +166,7 @@ export default function App() {
     }
   }, []);
 
-
+  // 1. URL Query Parameter Sync on Initial Load
   useEffect(() => {
     try {
       const params = new URLSearchParams(window.location.search);
@@ -184,11 +184,11 @@ export default function App() {
       if (urlSort) setSelectedSort(urlSort as SortOption);
       if (urlSearch) setSearchQuery(urlSearch);
     } catch {
-
+      // Ignore URL parsing errors
     }
   }, []);
 
-
+  // 2. Persist Active Filters to URL smoothly
   useEffect(() => {
     try {
       const params = new URLSearchParams();
@@ -203,11 +203,11 @@ export default function App() {
       const newUrl = queryStr ? `${window.location.pathname}?${queryStr}` : window.location.pathname;
       window.history.replaceState({}, '', newUrl);
     } catch {
-
+      // Ignore
     }
   }, [mode, timeRange, selectedCategory, selectedFilter, selectedSort, searchQuery]);
 
-
+  // 3. Scroll Listener for Sticky Rank Bar
   useEffect(() => {
     const handleScroll = () => {
       if (!yourRankRef.current) return;
@@ -223,12 +223,12 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-
+  // Calculate Total Live Verified Student Income
   const totalVerifiedIncome = useMemo(() => {
     return participants.reduce((acc, curr) => acc + curr.income, 0);
   }, [participants]);
 
-
+  // Category counts
   const categoryCounts = useMemo(() => {
     const counts: Record<Category, number> = {
       all: mode === 'individual' ? participants.length : teams.length,
@@ -250,11 +250,11 @@ export default function App() {
     return counts;
   }, [participants, teams, mode]);
 
-
+  // Filtered and Sorted Dataset
   const processedItems = useMemo(() => {
     let list: (Participant | Team)[] = mode === 'individual' ? [...participants] : [...teams];
 
-
+    // 1. Search Query
     if (searchQuery && searchQuery.trim()) {
       const q = searchQuery.toLowerCase().trim();
       list = list.filter((item) => {
@@ -279,12 +279,12 @@ export default function App() {
       });
     }
 
-
+    // 2. Category Filter
     if (selectedCategory !== 'all') {
       list = list.filter((item) => item.category === selectedCategory);
     }
 
-
+    // 3. Special Filter Type
     if (selectedFilter === 'my_college') {
       const userCol = (userProfile?.college || '').toLowerCase();
       list = list.filter((item) => {
@@ -302,7 +302,7 @@ export default function App() {
       list = list.filter((item) => item.rankChange >= 3);
     }
 
-
+    // 4. Time Range Calculation for Income
     list.sort((a, b) => {
       const getAmount = (item: Participant | Team) => {
         if (mode === 'individual') {
@@ -326,7 +326,7 @@ export default function App() {
     return list;
   }, [participants, teams, mode, searchQuery, selectedCategory, selectedFilter, selectedSort, timeRange, userProfile.college]);
 
-
+  // Top 3 for Podium
   const topParticipants = useMemo(() => {
     return [...participants].sort((a, b) => a.rank - b.rank).slice(0, 3);
   }, [participants]);
@@ -335,7 +335,7 @@ export default function App() {
     return [...teams].sort((a, b) => a.rank - b.rank).slice(0, 3);
   }, [teams]);
 
-
+  // Handlers
   const handleResetFilters = () => {
     setSearchQuery('');
     setSelectedCategory('all');
@@ -359,7 +359,7 @@ export default function App() {
     }
   };
 
-
+  // Earning Submission Handler
   const handleSubmitSuccess = (amount: number, category: Category, title: string) => {
     const newIncome = userProfile.income + amount;
     const climbedPositions = Math.min(Math.floor(amount / 500) + 1, 6);
@@ -392,7 +392,7 @@ export default function App() {
       )
     );
 
-
+    // Update college contribution
     setColleges((prev) =>
       prev.map((c) =>
         c.isUserCollege
@@ -405,7 +405,7 @@ export default function App() {
       )
     );
 
-
+    // Update milestones
     setMilestones((prev) =>
       prev.map((m) => {
         if (newIncome >= m.targetIncome && m.status === 'locked') {
@@ -425,7 +425,7 @@ export default function App() {
     });
   };
 
-
+  // Claim Bounty Handler
   const handleClaimBounty = (bountyId: string) => {
     const bounty = bounties.find((b) => b.id === bountyId);
     if (!bounty) return;
@@ -444,7 +444,7 @@ export default function App() {
     });
   };
 
-
+  // Claim Milestone Perk
   const handleClaimReward = (milestoneId: string) => {
     setMilestones((prev) =>
       prev.map((m) => (m.id === milestoneId ? { ...m, status: 'claimed' as const } : m))
@@ -459,7 +459,7 @@ export default function App() {
     });
   };
 
-
+  // Simulation: Overtake
   const handleSimulateOvertake = () => {
     setUserProfile((prev) => ({
       ...prev,
@@ -481,7 +481,7 @@ export default function App() {
     });
   };
 
-
+  // Simulation: Climb
   const handleSimulateClimb = () => {
     setUserProfile((prev) => ({
       ...prev,
@@ -504,7 +504,7 @@ export default function App() {
     });
   };
 
-
+  // Simulation: Toggle Zero State
   const handleToggleZeroState = () => {
     if (!isZeroState) {
       setUserProfile((prev) => ({
@@ -563,7 +563,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-neutral-100 flex flex-col selection:bg-[#BEFF00] selection:text-black">
       
-      
+      {/* 1. Primary Header */}
       <Header
         onOpenSubmitModal={() => setIsSubmitModalOpen(true)}
         onOpenWhatsAppModal={() => setIsWhatsAppModalOpen(true)}
@@ -574,20 +574,20 @@ export default function App() {
         scrollToSection={scrollToSection}
       />
 
-      
+      {/* Main Content Area */}
       <main className="flex-1">
         
-        
+        {/* 2. Challenge Hero with Live Countdown & Stats */}
         <Hero
           onExploreClick={() => scrollToSection('leaderboard-main')}
           onOpenSubmitModal={() => setIsSubmitModalOpen(true)}
           totalIncomeCount={totalVerifiedIncome}
         />
 
-        
+        {/* 3. Main Leaderboard Experience Container */}
         <div id="leaderboard-main" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 pb-12 sm:pb-16">
           
-          
+          {/* Simulation Controls Banner (Interactive Sandbox) */}
           <LiveSimulationBar
             onSimulateOvertake={handleSimulateOvertake}
             onSimulateClimb={handleSimulateClimb}
@@ -596,7 +596,7 @@ export default function App() {
             isZeroState={isZeroState}
           />
 
-          
+          {/* 4. Mode Toggle (Individual / Team / Campus Wars) */}
           <LeaderboardModeToggle
             mode={mode}
             onChange={setMode}
@@ -605,7 +605,7 @@ export default function App() {
             collegeCount={colleges.length}
           />
 
-          
+          {/* If Campus Wars mode is active directly in toggle, show Campus Wars */}
           {mode === 'college' ? (
             <div className="my-6">
               <CampusWars
@@ -620,7 +620,7 @@ export default function App() {
             </div>
           ) : (
             <>
-              
+              {/* 5. Top 3 Podium */}
               <Podium
                 mode={mode}
                 topParticipants={topParticipants}
@@ -633,7 +633,7 @@ export default function App() {
                 }}
               />
 
-              
+              {/* 6. YOUR RANK — THE MOTIVATION & RIVALRY ENGINE */}
               <div ref={yourRankRef}>
                 {isZeroState ? (
                   <div className="my-6 sm:my-8 rounded-2xl sm:rounded-3xl bg-[#111111] border-2 border-dashed border-[#BEFF00]/40 p-6 sm:p-8 text-center space-y-4 shadow-xl">
@@ -682,7 +682,7 @@ export default function App() {
                 )}
               </div>
 
-              
+              {/* 7. Race to Top 10 Dynamic Progress & Contextual Ideas */}
               <div id="race-to-top-10-card">
                 <RaceToTop10
                   userProfile={userProfile}
@@ -693,14 +693,14 @@ export default function App() {
                 />
               </div>
 
-              
+              {/* 8. Category Filter */}
               <CategoryFilter
                 selectedCategory={selectedCategory}
                 onSelectCategory={setSelectedCategory}
                 categoryCounts={categoryCounts}
               />
 
-              
+              {/* 9. Search & Filter Bar */}
               <FilterBar
                 searchQuery={searchQuery}
                 onSearchChange={setSearchQuery}
@@ -716,7 +716,7 @@ export default function App() {
                 isFiltered={isFiltered}
               />
 
-              
+              {/* 10. Interactive Table with Playbook Triggers */}
               <LeaderboardTable
                 items={processedItems}
                 mode={mode}
@@ -728,7 +728,7 @@ export default function App() {
             </>
           )}
 
-          
+          {/* 11. Campus Wars Section (Always prominent) */}
           <div id="campus-wars-section">
             <CampusWars
               colleges={colleges}
@@ -741,7 +741,7 @@ export default function App() {
             />
           </div>
 
-          
+          {/* 12. Instant Gig / Bounty Board Section */}
           <div id="bounty-board-section">
             <BountyBoard
               bounties={bounties}
@@ -750,7 +750,7 @@ export default function App() {
             />
           </div>
 
-          
+          {/* 13. Fastest Risers Module */}
           <div id="fastest-risers-section">
             <FastestRisers
               onSelectRiser={(id) => {
@@ -760,7 +760,7 @@ export default function App() {
             />
           </div>
 
-          
+          {/* 14. How Rankings Work & Trust Section */}
           <div id="how-it-works-section">
             <RankingInfo
               onOpenVerificationModal={() => setIsVerificationModalOpen(true)}
@@ -771,7 +771,7 @@ export default function App() {
         </div>
       </main>
 
-      
+      {/* 15. Sticky Mobile/Desktop Rank Bar */}
       <StickyRankBar
         userProfile={userProfile}
         visible={showStickyRank && !isZeroState}
@@ -784,28 +784,28 @@ export default function App() {
         }}
       />
 
-      
+      {/* 16. Dynamic Toast Alert */}
       <NotificationToast
         toast={activeToast}
         onDismiss={() => setActiveToast(null)}
       />
 
+      {/* 17. Modals & Drawers */}
       
-      
-      
+      {/* Verification SLA & Trust Rules */}
       <VerificationModal
         isOpen={isVerificationModalOpen}
         onClose={() => setIsVerificationModalOpen(false)}
       />
 
-      
+      {/* Share Rank Generator Card Modal */}
       <ShareRankModal
         isOpen={isShareModalOpen}
         onClose={() => setIsShareModalOpen(false)}
         userProfile={userProfile}
       />
 
-      
+      {/* WhatsApp Notification Preferences Modal */}
       <WhatsAppNotificationModal
         isOpen={isWhatsAppModalOpen}
         onClose={() => setIsWhatsAppModalOpen(false)}
@@ -813,7 +813,7 @@ export default function App() {
         onUpdatePreferences={handleUpdateNotificationPreferences}
       />
 
-      
+      {/* Privacy Settings Modal */}
       <PrivacySettingsModal
         isOpen={isPrivacyModalOpen}
         onClose={() => setIsPrivacyModalOpen(false)}
@@ -821,14 +821,14 @@ export default function App() {
         onUpdatePrivacy={handleUpdatePrivacy}
       />
 
-      
+      {/* Submit New Earning Modal */}
       <SubmitEarningModal
         isOpen={isSubmitModalOpen}
         onClose={() => setIsSubmitModalOpen(false)}
         onSubmitSuccess={handleSubmitSuccess}
       />
 
-      
+      {/* Participant / Team Detail Inspector Modal */}
       <ParticipantDetailModal
         item={selectedDetailItem}
         mode={mode}
@@ -840,7 +840,7 @@ export default function App() {
         }}
       />
 
-      
+      {/* "How I Earned It" Case Study Breakdown Drawer */}
       <HowIEarnedItModal
         participantId={selectedCaseStudyId}
         isOpen={Boolean(selectedCaseStudyId)}
@@ -852,7 +852,7 @@ export default function App() {
         caseStudies={MOCK_CASE_STUDIES}
       />
 
-      
+      {/* Milestone Rewards Drawer */}
       <MilestoneRewardsDrawer
         isOpen={isMilestonesOpen}
         onClose={() => setIsMilestonesOpen(false)}
@@ -866,14 +866,14 @@ export default function App() {
         }}
       />
 
-      
+      {/* 1v1 Challenge Friend via WhatsApp Modal */}
       <ChallengeFriendModal
         isOpen={isChallengeFriendOpen}
         onClose={() => setIsChallengeFriendOpen(false)}
         userProfile={userProfile}
       />
 
-      
+      {/* "While You Were Away" Login Movement Recap */}
       <WhileYouWereAwayModal
         isOpen={isWhileAwayOpen}
         onClose={() => setIsWhileAwayOpen(false)}
@@ -890,14 +890,14 @@ export default function App() {
         }}
       />
 
-      
+      {/* Hall of Fame (Past Waves Archive) */}
       <HallOfFameModal
         isOpen={isHallOfFameOpen}
         onClose={() => setIsHallOfFameOpen(false)}
         pastWaves={MOCK_PAST_WAVES}
       />
 
-      
+      {/* 18. Footer */}
       <Footer
         onOpenVerificationModal={() => setIsVerificationModalOpen(true)}
         onOpenWhatsAppModal={() => setIsWhatsAppModalOpen(true)}

@@ -41,7 +41,7 @@ export const HowIEarnedItModal: React.FC<HowIEarnedItModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
       <div className="relative w-full max-w-2xl rounded-3xl bg-[#111111] border border-neutral-800 p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
         
-        
+        {/* Close Button */}
         <button
           onClick={onClose}
           className="absolute top-4 right-4 p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors"
@@ -50,7 +50,7 @@ export const HowIEarnedItModal: React.FC<HowIEarnedItModalProps> = ({
           <X className="w-5 h-5" />
         </button>
 
-        
+        {/* Top Header */}
         <div className="flex items-start gap-4">
           <img
             src={caseStudy.avatar}
@@ -74,7 +74,7 @@ export const HowIEarnedItModal: React.FC<HowIEarnedItModalProps> = ({
           </div>
         </div>
 
-        
+        {/* Story Summary Box */}
         <div className="p-4 rounded-2xl bg-[#161616] border border-neutral-800 space-y-2">
           <div className="text-xs font-mono font-bold uppercase text-neutral-300 flex items-center gap-1.5">
             <FileText className="w-3.5 h-3.5 text-[#BEFF00]" />
@@ -85,7 +85,7 @@ export const HowIEarnedItModal: React.FC<HowIEarnedItModalProps> = ({
           </p>
         </div>
 
-        
+        {/* Client Acquisition & Tools Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           
           <div className="p-4 rounded-2xl bg-[#161616] border border-neutral-800 space-y-2">
@@ -118,7 +118,7 @@ export const HowIEarnedItModal: React.FC<HowIEarnedItModalProps> = ({
 
         </div>
 
-        
+        {/* Actionable Playbook Rules */}
         <div className="space-y-3">
           <div className="text-xs font-mono font-bold uppercase text-white flex items-center gap-1.5">
             <Lightbulb className="w-4 h-4 text-amber-400" />
@@ -138,7 +138,7 @@ export const HowIEarnedItModal: React.FC<HowIEarnedItModalProps> = ({
           </div>
         </div>
 
-        
+        {/* Client Testimonial (if present) */}
         {caseStudy.clientTestimonial && (
           <div className="p-4 rounded-2xl bg-[#141414] border border-neutral-800/80 italic text-xs text-neutral-300 flex items-start gap-2.5">
             <Quote className="w-5 h-5 text-[#BEFF00] shrink-0 opacity-80" />
@@ -146,7 +146,7 @@ export const HowIEarnedItModal: React.FC<HowIEarnedItModalProps> = ({
           </div>
         )}
 
-        
+        {/* Bottom CTA */}
         <div className="pt-2 flex items-center gap-3">
           <button
             onClick={() => {

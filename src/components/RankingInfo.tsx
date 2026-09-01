@@ -14,12 +14,12 @@ export const RankingInfo: React.FC<RankingInfoProps> = ({
   return (
     <section id="how-it-works-section" className="my-12 sm:my-16 relative">
       
-      
+      {/* Background Watermark */}
       <div className="rupee-watermark text-8xl -top-6 -left-6 opacity-10">₹</div>
 
       <div className="bento-card p-6 sm:p-10 shadow-2xl space-y-8">
         
-        
+        {/* Section Header */}
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div className="space-y-1">
             <div className="inline-flex items-center gap-1.5 text-xs font-mono uppercase font-bold tracking-widest text-[#BEFF00]">
@@ -43,7 +43,7 @@ export const RankingInfo: React.FC<RankingInfoProps> = ({
           </button>
         </div>
 
-        
+        {/* 4 Step Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {HOW_IT_WORKS_STEPS.map((step, idx) => (
             <div
@@ -67,7 +67,7 @@ export const RankingInfo: React.FC<RankingInfoProps> = ({
           ))}
         </div>
 
-        
+        {/* Key Trust Banner */}
         <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#161616] to-[#111111] border border-neutral-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="p-2.5 rounded-xl bg-[#BEFF00] text-black shrink-0">

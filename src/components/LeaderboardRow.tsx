@@ -45,7 +45,7 @@ export const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
           : 'hover:bg-neutral-850/60'
       }`}
     >
-      
+      {/* Rank Column */}
       <td className="py-4 px-4 sm:px-6 whitespace-nowrap">
         <div className="flex items-center gap-2">
           <span
@@ -76,10 +76,10 @@ export const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
         </div>
       </td>
 
-      
+      {/* Participant / Team Details Column */}
       <td className="py-4 px-4 sm:px-6">
         <div className="flex items-center gap-3">
-          
+          {/* Avatar or Team Cluster */}
           {isIndividual ? (
             <div className="relative shrink-0">
               <img
@@ -109,7 +109,7 @@ export const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
             </div>
           )}
 
-          
+          {/* Name and Badges */}
           <div className="space-y-0.5 min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
               <span className="font-bold text-sm sm:text-base text-white group-hover:text-[#BEFF00] transition-colors truncate">
@@ -147,7 +147,7 @@ export const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
               )}
             </div>
 
-            
+            {/* Sub-text: Category & Hustle Title */}
             <div className="flex items-center gap-2 text-xs text-neutral-400 truncate">
               {isIndividual && participant?.hustleTitle ? (
                 <span className="truncate max-w-[200px] sm:max-w-[300px]">
@@ -163,12 +163,12 @@ export const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
         </div>
       </td>
 
-      
+      {/* College Column (Desktop) */}
       <td className="py-4 px-4 sm:px-6 hidden md:table-cell whitespace-nowrap text-sm text-neutral-300 font-medium">
         <span className="truncate max-w-[180px] block">{college}</span>
       </td>
 
-      
+      {/* Verified Income Column */}
       <td className="py-4 px-4 sm:px-6 whitespace-nowrap text-right md:text-left">
         <div className="space-y-0.5">
           <div className="font-mono text-base sm:text-lg font-black text-[#BEFF00] tracking-tight">
@@ -180,7 +180,7 @@ export const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
         </div>
       </td>
 
-      
+      {/* Rank Movement Column */}
       <td className="py-4 px-4 sm:px-6 whitespace-nowrap text-center">
         <div className="inline-flex items-center justify-center font-mono text-xs sm:text-sm font-bold">
           {rankChange > 0 ? (
@@ -199,20 +199,20 @@ export const LeaderboardRow: React.FC<LeaderboardRowProps> = ({
         </div>
       </td>
 
-      
+      {/* Verification Column */}
       <td className="py-4 px-4 sm:px-6 hidden sm:table-cell whitespace-nowrap text-right">
         <VerificationBadge
           status={verificationStatus}
           proofCount={isIndividual ? participant?.proofCount : undefined}
           onClick={(e) => {
-
+            // Stop propagation to prevent opening row detail
             e?.stopPropagation?.();
             onOpenVerificationModal();
           }}
         />
       </td>
 
-      
+      {/* Detail Arrow */}
       <td className="py-4 px-3 text-right text-neutral-500 group-hover:text-white">
         <ChevronRight className="w-4 h-4 ml-auto" />
       </td>

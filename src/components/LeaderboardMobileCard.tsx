@@ -40,11 +40,11 @@ export const LeaderboardMobileCard: React.FC<LeaderboardMobileCardProps> = ({
           : 'bg-[#111111] border-neutral-800 hover:border-neutral-700'
       }`}
     >
-      
+      {/* Top row: Rank, Avatar, Name & Movement */}
       <div className="flex items-center justify-between gap-3">
         
         <div className="flex items-center gap-3">
-          
+          {/* Rank Number */}
           <div className="flex items-center gap-1">
             <span
               className={`font-heading text-2xl font-black ${
@@ -61,7 +61,7 @@ export const LeaderboardMobileCard: React.FC<LeaderboardMobileCardProps> = ({
             </span>
           </div>
 
-          
+          {/* Avatar */}
           {isIndividual ? (
             <img
               src={participant!.avatar}
@@ -100,7 +100,7 @@ export const LeaderboardMobileCard: React.FC<LeaderboardMobileCardProps> = ({
           </div>
         </div>
 
-        
+        {/* Movement Pill */}
         <div className="shrink-0 font-mono text-xs font-bold">
           {rankChange > 0 ? (
             <span className="text-emerald-400 flex items-center gap-0.5 bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-500/20">
@@ -119,7 +119,7 @@ export const LeaderboardMobileCard: React.FC<LeaderboardMobileCardProps> = ({
 
       </div>
 
-      
+      {/* Bottom row: Income, Verification & Hustle info */}
       <div className="pt-2 border-t border-neutral-800/80 flex items-center justify-between gap-2">
         <div className="flex items-baseline gap-1.5">
           <span className="font-mono text-lg font-black text-[#BEFF00]">
@@ -141,7 +141,7 @@ export const LeaderboardMobileCard: React.FC<LeaderboardMobileCardProps> = ({
         </div>
       </div>
 
-      
+      {/* Hustle Title snippet if present */}
       {isIndividual && participant?.hustleTitle && (
         <div className="text-[11px] text-neutral-400 italic truncate">
           &ldquo;{participant.hustleTitle}&rdquo;

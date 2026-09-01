@@ -47,7 +47,7 @@ export const ChallengeFriendModal: React.FC<ChallengeFriendModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
       <div className="relative w-full max-w-lg rounded-3xl bg-[#111111] border border-neutral-800 p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
         
-        
+        {/* Close Button */}
         <button
           onClick={onClose}
           className="absolute top-4 right-4 p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors"
@@ -56,7 +56,7 @@ export const ChallengeFriendModal: React.FC<ChallengeFriendModalProps> = ({
           <X className="w-5 h-5" />
         </button>
 
-        
+        {/* Header */}
         <div className="space-y-1 text-center">
           <div className="w-12 h-12 rounded-2xl bg-[#BEFF00]/10 border border-[#BEFF00]/30 flex items-center justify-center mx-auto text-[#BEFF00] mb-2">
             <Swords className="w-6 h-6" />
@@ -69,7 +69,7 @@ export const ChallengeFriendModal: React.FC<ChallengeFriendModalProps> = ({
           </p>
         </div>
 
-        
+        {/* Inputs */}
         <div className="space-y-3">
           <div>
             <label className="block text-xs font-mono text-neutral-400 uppercase font-bold mb-1">
@@ -107,7 +107,7 @@ export const ChallengeFriendModal: React.FC<ChallengeFriendModalProps> = ({
           </div>
         </div>
 
-        
+        {/* Faceoff Preview Card */}
         <div className="p-4 rounded-2xl bg-[#141414] border border-[#BEFF00]/30 space-y-3 relative overflow-hidden">
           <div className="flex items-center justify-between text-xs font-mono">
             <span className="text-[#BEFF00] font-bold">1-ON-1 DUEL</span>
@@ -137,7 +137,7 @@ export const ChallengeFriendModal: React.FC<ChallengeFriendModalProps> = ({
           </div>
         </div>
 
-        
+        {/* Action Buttons */}
         <div className="space-y-2 pt-1">
           <button
             onClick={handleWhatsAppShare}

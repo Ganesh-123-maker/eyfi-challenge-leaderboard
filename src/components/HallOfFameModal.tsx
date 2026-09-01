@@ -33,7 +33,7 @@ export const HallOfFameModal: React.FC<HallOfFameModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
       <div className="relative w-full max-w-2xl rounded-3xl bg-[#111111] border border-neutral-800 p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
         
-        
+        {/* Close Button */}
         <button
           onClick={onClose}
           className="absolute top-4 right-4 p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors"
@@ -42,7 +42,7 @@ export const HallOfFameModal: React.FC<HallOfFameModalProps> = ({
           <X className="w-5 h-5" />
         </button>
 
-        
+        {/* Header */}
         <div className="space-y-1">
           <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-500/10 text-amber-300 font-mono text-xs font-bold uppercase">
             <Trophy className="w-3.5 h-3.5" />
@@ -56,7 +56,7 @@ export const HallOfFameModal: React.FC<HallOfFameModalProps> = ({
           </p>
         </div>
 
-        
+        {/* Wave Selector Tabs */}
         <div className="flex flex-wrap gap-2">
           {pastWaves.map((wave) => (
             <button
@@ -73,11 +73,11 @@ export const HallOfFameModal: React.FC<HallOfFameModalProps> = ({
           ))}
         </div>
 
-        
+        {/* Selected Wave Overview Card */}
         {currentWave && (
           <div className="space-y-4">
             
-            
+            {/* Wave Meta Banner */}
             <div className="p-4 rounded-2xl bg-[#161616] border border-neutral-800 grid grid-cols-2 sm:grid-cols-3 gap-3 font-mono text-xs">
               <div>
                 <div className="text-neutral-500 uppercase text-[10px]">Challenge Period</div>
@@ -93,7 +93,7 @@ export const HallOfFameModal: React.FC<HallOfFameModalProps> = ({
               </div>
             </div>
 
-            
+            {/* Champion Showcase Card */}
             <div className="p-5 rounded-2xl bg-gradient-to-br from-amber-950/20 via-[#141414] to-[#111111] border-2 border-amber-500/40 space-y-3 relative overflow-hidden">
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-center gap-3">
@@ -136,7 +136,7 @@ export const HallOfFameModal: React.FC<HallOfFameModalProps> = ({
               </div>
             </div>
 
-            
+            {/* Runner Ups */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="p-3.5 rounded-2xl bg-[#141414] border border-neutral-800 flex items-center justify-between">
                 <div className="flex items-center gap-2.5">

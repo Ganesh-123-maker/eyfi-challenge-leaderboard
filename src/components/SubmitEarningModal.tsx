@@ -52,7 +52,7 @@ export const SubmitEarningModal: React.FC<SubmitEarningModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200">
       <div className="relative w-full max-w-lg rounded-3xl bg-[#111111] border border-neutral-800 p-6 sm:p-8 shadow-2xl space-y-6 max-h-[92vh] overflow-y-auto">
         
-        
+        {/* Close Button */}
         <button
           onClick={onClose}
           className="absolute top-4 right-4 p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors"
@@ -61,7 +61,7 @@ export const SubmitEarningModal: React.FC<SubmitEarningModalProps> = ({
           <X className="w-5 h-5" />
         </button>
 
-        
+        {/* Modal Header */}
         <div className="space-y-1">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#BEFF00]/10 border border-[#BEFF00]/30 text-[#BEFF00] text-xs font-mono font-bold">
             <Zap className="w-3.5 h-3.5 fill-[#BEFF00]" />
@@ -89,7 +89,7 @@ export const SubmitEarningModal: React.FC<SubmitEarningModalProps> = ({
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
-            
+            {/* Amount in INR */}
             <div className="space-y-1.5">
               <label className="block text-xs font-mono uppercase font-bold text-neutral-300">
                 Income Earned (₹ INR) *
@@ -111,7 +111,7 @@ export const SubmitEarningModal: React.FC<SubmitEarningModalProps> = ({
               </div>
             </div>
 
-            
+            {/* Hustle Category */}
             <div className="space-y-1.5">
               <label className="block text-xs font-mono uppercase font-bold text-neutral-300">
                 Hustle Category *
@@ -130,7 +130,7 @@ export const SubmitEarningModal: React.FC<SubmitEarningModalProps> = ({
               </select>
             </div>
 
-            
+            {/* Hustle Description */}
             <div className="space-y-1.5">
               <label className="block text-xs font-mono uppercase font-bold text-neutral-300">
                 What did you do? *
@@ -145,7 +145,7 @@ export const SubmitEarningModal: React.FC<SubmitEarningModalProps> = ({
               />
             </div>
 
-            
+            {/* UPI or Transaction Reference */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="space-y-1.5">
                 <label className="block text-xs font-mono uppercase font-bold text-neutral-300">
@@ -174,7 +174,7 @@ export const SubmitEarningModal: React.FC<SubmitEarningModalProps> = ({
               </div>
             </div>
 
-            
+            {/* File Upload Drop Area */}
             <div className="space-y-1.5">
               <label className="block text-xs font-mono uppercase font-bold text-neutral-300">
                 Upload Payment Screenshot or Invoice
@@ -196,7 +196,7 @@ export const SubmitEarningModal: React.FC<SubmitEarningModalProps> = ({
               </label>
             </div>
 
-            
+            {/* Submit Button */}
             <button
               type="submit"
               className="w-full py-3.5 rounded-xl bg-[#BEFF00] hover:bg-[#a6e000] text-black font-extrabold text-sm tracking-tight transition-all shadow-[0_0_20px_rgba(190,255,0,0.25)] flex items-center justify-center gap-2"

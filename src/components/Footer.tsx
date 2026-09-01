@@ -16,10 +16,10 @@ export const Footer: React.FC<FooterProps> = ({
     <footer className="border-t border-neutral-900 bg-[#080808] text-neutral-400 text-xs py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto space-y-10">
         
-        
+        {/* Top Footer Row */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
           
-          
+          {/* Logo & Philosophy */}
           <div className="md:col-span-5 space-y-3">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-lg bg-[#BEFF00] flex items-center justify-center text-black font-black text-lg">
@@ -49,7 +49,7 @@ export const Footer: React.FC<FooterProps> = ({
             </div>
           </div>
 
-          
+          {/* Nav Links */}
           <div className="md:col-span-2 space-y-2.5">
             <div className="font-mono uppercase font-bold text-white text-xs tracking-wider">
               Challenge
@@ -76,7 +76,7 @@ export const Footer: React.FC<FooterProps> = ({
             </ul>
           </div>
 
-          
+          {/* Trust & Integrity */}
           <div className="md:col-span-2 space-y-2.5">
             <div className="font-mono uppercase font-bold text-white text-xs tracking-wider">
               Integrity & Trust
@@ -103,7 +103,7 @@ export const Footer: React.FC<FooterProps> = ({
             </ul>
           </div>
 
-          
+          {/* Micro FAQ snippet */}
           <div className="md:col-span-3 space-y-2.5">
             <div className="font-mono uppercase font-bold text-white text-xs tracking-wider">
               Verification Policy
@@ -118,7 +118,7 @@ export const Footer: React.FC<FooterProps> = ({
 
         </div>
 
-        
+        {/* Bottom Bar */}
         <div className="pt-8 border-t border-neutral-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-neutral-500">
           <div>
             © {new Date().getFullYear()} EYFI (Earn Your First Income). All rights reserved.

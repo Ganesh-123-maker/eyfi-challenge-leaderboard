@@ -46,7 +46,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
 
   return (
     <div id="leaderboard-table-container" className="my-6 space-y-4">
-      
+      {/* Desktop Table View (Hidden on Small Screens) */}
       <div className="hidden sm:block overflow-hidden rounded-2xl border border-neutral-800 bg-[#111111] shadow-xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
@@ -89,7 +89,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
         </div>
       </div>
 
-      
+      {/* Mobile Card List View (Visible on Small Screens) */}
       <div className="sm:hidden space-y-3">
         {displayedItems.map((item) => (
           <LeaderboardMobileCard
@@ -105,7 +105,7 @@ export const LeaderboardTable: React.FC<LeaderboardTableProps> = ({
         ))}
       </div>
 
-      
+      {/* Pagination / Scalability Architecture: Load More Hustlers */}
       {hasMore && (
         <div className="pt-4 text-center">
           <button

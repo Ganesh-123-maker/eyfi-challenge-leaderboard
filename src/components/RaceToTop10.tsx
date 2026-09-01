@@ -68,7 +68,7 @@ export const RaceToTop10: React.FC<RaceToTop10Props> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<Category>('freelancing');
 
-
+  // Calculation of Cutoff Gap
   const gapToTop10 = Math.max(userProfile.top10CutoffIncome - userProfile.income, 0);
   const percentToTop10 = Math.min(Math.round((userProfile.income / userProfile.top10CutoffIncome) * 100), 100);
 
@@ -77,10 +77,10 @@ export const RaceToTop10: React.FC<RaceToTop10Props> = ({
   return (
     <div id="race-to-top-10-card" className="bento-card p-5 sm:p-7 md:p-8 my-6 relative overflow-hidden bg-gradient-to-br from-[#121212] via-[#101010] to-[#0A0A0A] border border-neutral-800 hover:border-[#BEFF00]/30 transition-all">
       
-      
+      {/* Background Ambient Glow */}
       <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
 
-      
+      {/* Header Banner */}
       <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
         <div className="space-y-1">
           <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-amber-500/10 border border-amber-500/25 text-amber-300 font-mono text-xs font-bold uppercase tracking-wider">
@@ -95,7 +95,7 @@ export const RaceToTop10: React.FC<RaceToTop10Props> = ({
           </p>
         </div>
 
-        
+        {/* Top 10 Cutoff Pill */}
         <div className="p-3 sm:p-4 rounded-2xl bg-[#161616] border border-neutral-800 text-right space-y-0.5">
           <div className="text-[11px] font-mono text-neutral-400 uppercase">#10 Cutoff (Zoya Khan)</div>
           <div className="text-lg sm:text-xl font-mono font-black text-amber-400">
@@ -107,7 +107,7 @@ export const RaceToTop10: React.FC<RaceToTop10Props> = ({
         </div>
       </div>
 
-      
+      {/* Visual Roadmap Milestones */}
       <div className="space-y-3 mb-8 p-4 sm:p-5 rounded-2xl bg-[#141414] border border-neutral-850">
         <div className="flex items-center justify-between text-xs font-mono">
           <span className="text-white font-bold flex items-center gap-1.5">
@@ -119,7 +119,7 @@ export const RaceToTop10: React.FC<RaceToTop10Props> = ({
           </span>
         </div>
 
-        
+        {/* Multi-tier Progress Bar */}
         <div className="relative h-4 bg-neutral-950 rounded-full overflow-hidden border border-neutral-800 p-0.5">
           <div 
             className="h-full bg-gradient-to-r from-emerald-500 via-[#BEFF00] to-amber-400 rounded-full transition-all duration-700 relative"
@@ -129,7 +129,7 @@ export const RaceToTop10: React.FC<RaceToTop10Props> = ({
           </div>
         </div>
 
-        
+        {/* Milestone Steps */}
         <div className="grid grid-cols-3 gap-2 pt-2 text-[11px] font-mono">
           <div className={`p-2.5 rounded-xl border ${userProfile.rank <= 25 ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-300' : 'bg-[#161616] border-neutral-800 text-neutral-500'}`}>
             <div className="font-bold flex items-center gap-1">
@@ -157,7 +157,7 @@ export const RaceToTop10: React.FC<RaceToTop10Props> = ({
         </div>
       </div>
 
-      
+      {/* Contextual "How Can I Earn It?" Section */}
       <div className="space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
@@ -171,7 +171,7 @@ export const RaceToTop10: React.FC<RaceToTop10Props> = ({
           </span>
         </div>
 
-        
+        {/* Category Pill Selector */}
         <div className="flex flex-wrap gap-2 pb-1">
           {(['freelancing', 'building', 'content', 'tutoring', 'selling'] as Category[]).map((cat) => (
             <button
@@ -188,7 +188,7 @@ export const RaceToTop10: React.FC<RaceToTop10Props> = ({
           ))}
         </div>
 
-        
+        {/* Actionable Ideas Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {(ACTIONABLE_EARNING_IDEAS[activeTab] || ACTIONABLE_EARNING_IDEAS.freelancing).map((idea, idx) => (
             <div

@@ -43,7 +43,7 @@ export const PrivacySettingsModal: React.FC<PrivacySettingsModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
       <div className="relative w-full max-w-lg rounded-3xl bg-[#111111] border border-neutral-800 p-6 sm:p-8 shadow-2xl space-y-6">
         
-        
+        {/* Close Button */}
         <button
           onClick={onClose}
           className="absolute top-4 right-4 p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors"
@@ -52,7 +52,7 @@ export const PrivacySettingsModal: React.FC<PrivacySettingsModalProps> = ({
           <X className="w-5 h-5" />
         </button>
 
-        
+        {/* Modal Header */}
         <div className="space-y-1">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#161616] border border-neutral-800 text-neutral-300 text-xs font-mono font-bold">
             <Lock className="w-3.5 h-3.5 text-[#BEFF00]" />
@@ -66,14 +66,14 @@ export const PrivacySettingsModal: React.FC<PrivacySettingsModalProps> = ({
           </p>
         </div>
 
-        
+        {/* Name format options */}
         <div className="space-y-3">
           <label className="block text-xs font-mono uppercase font-bold text-neutral-300">
             Name Display Mode
           </label>
 
           <div className="space-y-2">
-            
+            {/* Full Name */}
             <div
               onClick={() => setPrivacySetting('full')}
               className={`p-3.5 rounded-2xl border cursor-pointer transition-all flex items-center justify-between ${
@@ -93,7 +93,7 @@ export const PrivacySettingsModal: React.FC<PrivacySettingsModalProps> = ({
               </div>
             </div>
 
-            
+            {/* Display Name / Short */}
             <div
               onClick={() => setPrivacySetting('short')}
               className={`p-3.5 rounded-2xl border cursor-pointer transition-all flex items-center justify-between ${
@@ -113,7 +113,7 @@ export const PrivacySettingsModal: React.FC<PrivacySettingsModalProps> = ({
               </div>
             </div>
 
-            
+            {/* Anonymous */}
             <div
               onClick={() => setPrivacySetting('anonymous')}
               className={`p-3.5 rounded-2xl border cursor-pointer transition-all flex items-center justify-between ${
@@ -135,7 +135,7 @@ export const PrivacySettingsModal: React.FC<PrivacySettingsModalProps> = ({
           </div>
         </div>
 
-        
+        {/* Hide Earnings Toggle */}
         <div className="p-4 rounded-2xl bg-[#0A0A0A] border border-neutral-850 flex items-center justify-between">
           <div className="space-y-0.5 pr-4">
             <div className="font-bold text-sm text-white flex items-center gap-1.5">
@@ -158,7 +158,7 @@ export const PrivacySettingsModal: React.FC<PrivacySettingsModalProps> = ({
           </label>
         </div>
 
-        
+        {/* Live Preview Bar */}
         <div className="p-3 rounded-2xl bg-[#161616] border border-neutral-800 text-xs font-mono text-neutral-300 flex items-center justify-between">
           <span>Public Leaderboard Preview:</span>
           <span className="text-[#BEFF00] font-bold">
@@ -166,7 +166,7 @@ export const PrivacySettingsModal: React.FC<PrivacySettingsModalProps> = ({
           </span>
         </div>
 
-        
+        {/* Save Button */}
         <button
           onClick={handleSave}
           className="w-full py-3.5 rounded-xl bg-[#BEFF00] hover:bg-[#a6e000] text-black font-extrabold text-sm tracking-tight transition-all flex items-center justify-center gap-2"
