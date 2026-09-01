@@ -45,10 +45,10 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   return (
     <div className="bento-card p-4 sm:p-5 space-y-4 my-4">
       
-      {/* Top row: Search Input & Time Range Switcher */}
+      
       <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
         
-        {/* Search Input Box */}
+        
         <div className="md:col-span-7 relative">
           <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-neutral-400">
             <Search className="w-4 h-4 text-neutral-400" />
@@ -74,7 +74,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           )}
         </div>
 
-        {/* Time Range Selector */}
+        
         <div className="md:col-span-5 flex items-center justify-start md:justify-end gap-1.5 overflow-x-auto">
           <div className="p-1 rounded-xl bg-[#161616] border border-neutral-800 flex items-center w-full sm:w-auto">
             {(['overall', 'week', 'today'] as TimeRange[]).map((tr) => (
@@ -96,12 +96,12 @@ export const FilterBar: React.FC<FilterBarProps> = ({
 
       </div>
 
-      {/* Bottom row: Filter Chips & Sort Dropdown */}
+      
       <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-neutral-800">
         
-        {/* Filter Pills */}
+        
         <div className="flex flex-wrap items-center gap-2">
-          {/* ALL */}
+          
           <button
             onClick={() => onSelectFilter('all')}
             id="filter-pill-all"
@@ -114,7 +114,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             ALL PARTICIPANTS
           </button>
 
-          {/* MY COLLEGE */}
+          
           <button
             onClick={() => onSelectFilter('my_college')}
             id="filter-pill-my-college"
@@ -128,7 +128,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             <span>MY COLLEGE ({userCollege})</span>
           </button>
 
-          {/* TOP 10 */}
+          
           <button
             onClick={() => onSelectFilter('top_10')}
             id="filter-pill-top10"
@@ -142,7 +142,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             <span>TOP 10</span>
           </button>
 
-          {/* RISING FAST */}
+          
           <button
             onClick={() => onSelectFilter('rising_fast')}
             id="filter-pill-rising"
@@ -157,7 +157,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           </button>
         </div>
 
-        {/* Sort and Count */}
+        
         <div className="flex items-center gap-2.5">
           <div className="flex items-center gap-1.5 text-xs text-neutral-400 font-mono">
             <ArrowUpDown className="w-3.5 h-3.5 text-[#BEFF00]" />
@@ -189,7 +189,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
 
       </div>
 
-      {/* Filter summary status */}
+      
       <div className="flex items-center justify-between text-xs text-neutral-400 font-mono pt-1">
         <span>Showing <strong>{totalResultsCount}</strong> hustlers</span>
         {isFiltered && (

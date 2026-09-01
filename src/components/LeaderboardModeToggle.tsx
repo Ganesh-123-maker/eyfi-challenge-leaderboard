@@ -28,7 +28,7 @@ export const LeaderboardModeToggle: React.FC<LeaderboardModeToggleProps> = ({
         </h2>
       </div>
 
-      {/* Main Mode Toggle Container */}
+      
       <div 
         role="tablist"
         aria-label="Leaderboard mode selection"

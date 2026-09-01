@@ -45,7 +45,7 @@ export const WhileYouWereAwayModal: React.FC<WhileYouWereAwayModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
       <div className="relative w-full max-w-lg rounded-3xl bg-[#111111] border-2 border-[#BEFF00]/40 p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
         
-        {/* Close Button */}
+        
         <button
           onClick={onClose}
           className="absolute top-4 right-4 p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors"
@@ -54,7 +54,7 @@ export const WhileYouWereAwayModal: React.FC<WhileYouWereAwayModalProps> = ({
           <X className="w-5 h-5" />
         </button>
 
-        {/* Header */}
+        
         <div className="space-y-1">
           <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#BEFF00] text-black font-mono text-xs font-black uppercase tracking-wider">
             <Clock className="w-3.5 h-3.5" />
@@ -68,7 +68,7 @@ export const WhileYouWereAwayModal: React.FC<WhileYouWereAwayModalProps> = ({
           </p>
         </div>
 
-        {/* Recap Matrix */}
+        
         <div className="grid grid-cols-2 gap-3">
           
           <div className="p-4 rounded-2xl bg-[#161616] border border-neutral-800 space-y-1">
@@ -116,7 +116,7 @@ export const WhileYouWereAwayModal: React.FC<WhileYouWereAwayModalProps> = ({
 
         </div>
 
-        {/* Action Button */}
+        
         <div className="pt-2">
           <button
             onClick={() => {

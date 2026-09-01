@@ -27,7 +27,7 @@ export const StickyRankBar: React.FC<StickyRankBarProps> = ({
     >
       <div className="max-w-7xl mx-auto px-2 sm:px-6 flex items-center justify-between gap-3">
         
-        {/* Left info */}
+        
         <div 
           onClick={onScrollToRank}
           className="flex items-center gap-2.5 sm:gap-4 cursor-pointer group"
@@ -64,7 +64,7 @@ export const StickyRankBar: React.FC<StickyRankBarProps> = ({
           </div>
         </div>
 
-        {/* Right action buttons */}
+        
         <div className="flex items-center gap-2">
           <button
             onClick={onOpenSubmitModal}

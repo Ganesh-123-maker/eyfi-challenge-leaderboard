@@ -18,7 +18,7 @@ export const Podium: React.FC<PodiumProps> = ({
   onSelectParticipant,
   onSelectTeam,
 }) => {
-  // Extract #1, #2, #3 for either Individual or Team mode
+
   const first = mode === 'individual' ? topParticipants[0] : topTeams[0];
   const second = mode === 'individual' ? topParticipants[1] : topTeams[1];
   const third = mode === 'individual' ? topParticipants[2] : topTeams[2];
@@ -27,7 +27,7 @@ export const Podium: React.FC<PodiumProps> = ({
 
   return (
     <div className="relative pt-2 pb-1 sm:pt-4 sm:pb-2 my-2 sm:my-3">
-      {/* Background Rupee Glow */}
+      
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
         <div className="w-80 h-80 bg-[#BEFF00]/10 rounded-full blur-3xl"></div>
       </div>
@@ -41,10 +41,10 @@ export const Podium: React.FC<PodiumProps> = ({
         </h3>
       </div>
 
-      {/* Podium Grid (Visual Order: 2 - 1 - 3) */}
+      
       <div className="max-w-4xl mx-auto grid grid-cols-3 gap-2 sm:gap-4 md:gap-6 items-end">
         
-        {/* RANK #2 (Silver Accent, Left) */}
+        
         <div className="order-1 flex flex-col items-center">
           <PodiumCard
             rank={2}
@@ -60,7 +60,7 @@ export const Podium: React.FC<PodiumProps> = ({
           />
         </div>
 
-        {/* RANK #1 (Lime / Gold Highlight, Center - Elevated) */}
+        
         <div className="order-2 flex flex-col items-center -mt-3 sm:-mt-6 z-10">
           <PodiumCard
             rank={1}
@@ -77,7 +77,7 @@ export const Podium: React.FC<PodiumProps> = ({
           />
         </div>
 
-        {/* RANK #3 (Bronze Accent, Right) */}
+        
         <div className="order-3 flex flex-col items-center">
           <PodiumCard
             rank={3}
@@ -137,14 +137,14 @@ const PodiumCard: React.FC<PodiumCardProps> = ({
       tabIndex={0}
       aria-label={`Rank ${rank}: ${name}, ${formatINR(income)}`}
     >
-      {/* Crown / Top Badge for #1 */}
+      
       {isFirst && (
         <div className="mb-2 flex items-center gap-1 text-[#BEFF00] animate-bounce">
           <Crown className="w-6 h-6 fill-[#BEFF00] drop-shadow-[0_0_8px_rgba(190,255,0,0.8)]" />
         </div>
       )}
 
-      {/* Avatar Container */}
+      
       <div className="relative mb-3">
         {isIndividual ? (
           <div
@@ -160,7 +160,7 @@ const PodiumCard: React.FC<PodiumCardProps> = ({
             />
           </div>
         ) : (
-          // Team Avatar Cluster
+
           <div
             className={`rounded-2xl p-2 bg-neutral-900 border-2 transition-all duration-300 group-hover:scale-105 flex items-center justify-center relative ${
               isFirst ? 'w-20 h-20 sm:w-28 sm:h-28 border-[#BEFF00] shadow-[0_0_20px_rgba(190,255,0,0.3)]' : 'w-16 h-16 sm:w-20 sm:h-20 border-neutral-700'
@@ -179,7 +179,7 @@ const PodiumCard: React.FC<PodiumCardProps> = ({
           </div>
         )}
 
-        {/* Rank Number Badge Floating on Avatar */}
+        
         <div
           className={`absolute -bottom-2 -right-1 sm:bottom-0 sm:right-0 px-2 py-0.5 rounded-full font-mono text-xs sm:text-sm font-extrabold flex items-center justify-center ${rankBadgeColor}`}
         >
@@ -187,9 +187,9 @@ const PodiumCard: React.FC<PodiumCardProps> = ({
         </div>
       </div>
 
-      {/* Participant / Team Details */}
+      
       <div className="text-center px-1 w-full">
-        {/* Special Achievement Badge */}
+        
         {badge && (
           <div className="mb-1 hidden sm:inline-block">
             <span
@@ -212,13 +212,13 @@ const PodiumCard: React.FC<PodiumCardProps> = ({
           {college}
         </div>
 
-        {/* Verified Income Tag */}
+        
         <div className="font-mono text-xs sm:text-base md:text-lg font-black text-[#BEFF00] flex items-center justify-center gap-1">
           <span>{formatINR(income)}</span>
           <CheckCircle className="w-3 h-3 text-[#BEFF00] shrink-0" />
         </div>
 
-        {/* Movement Indicator */}
+        
         <div className="text-[10px] sm:text-xs font-mono font-semibold flex items-center justify-center gap-1 mt-0.5">
           {rankChange > 0 ? (
             <span className="text-[#BEFF00] flex items-center">
@@ -236,7 +236,7 @@ const PodiumCard: React.FC<PodiumCardProps> = ({
         </div>
       </div>
 
-      {/* Physical Elevated Podium Base Pillar */}
+      
       <div
         className={`w-full mt-2 sm:mt-2.5 rounded-t-lg sm:rounded-t-xl border-t-2 border-x border-neutral-800/80 bg-gradient-to-b from-[#141414] to-[#0A0A0A] flex flex-col items-center justify-center py-1.5 sm:py-2 transition-all duration-300 group-hover:border-[#BEFF00]/50 ${podiumHeight} ${accentColor}`}
       >

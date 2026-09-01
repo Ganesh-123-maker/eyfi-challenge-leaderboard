@@ -37,7 +37,7 @@ export interface Participant {
   incomeToday: number;
   rank: number;
   previousRank: number;
-  rankChange: number; // positive = climbed, negative = dropped, 0 = unchanged
+  rankChange: number;
   category: Category;
   verificationStatus: VerificationStatus;
   badge?: BadgeType;

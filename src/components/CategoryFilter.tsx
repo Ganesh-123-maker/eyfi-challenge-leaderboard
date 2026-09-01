@@ -45,7 +45,7 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
         </span>
       </div>
 
-      {/* Horizontal Scrollable Category Chips */}
+      
       <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none no-scrollbar">
         {CATEGORIES_CONFIG.map((cat) => {
           const isSelected = selectedCategory === cat.id;

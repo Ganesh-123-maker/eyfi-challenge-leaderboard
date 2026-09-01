@@ -37,7 +37,7 @@ export const ParticipantDetailModal: React.FC<ParticipantDetailModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
       <div className="relative w-full max-w-xl rounded-3xl bg-[#111111] border border-neutral-800 p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
         
-        {/* Close Button */}
+        
         <button
           onClick={onClose}
           className="absolute top-4 right-4 p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors"
@@ -46,9 +46,9 @@ export const ParticipantDetailModal: React.FC<ParticipantDetailModalProps> = ({
           <X className="w-5 h-5" />
         </button>
 
-        {/* Top Header Card */}
+        
         <div className="flex items-start gap-4">
-          {/* Avatar or Cluster */}
+          
           {isIndividual ? (
             <div className="relative shrink-0">
               <img
@@ -92,7 +92,7 @@ export const ParticipantDetailModal: React.FC<ParticipantDetailModalProps> = ({
           </div>
         </div>
 
-        {/* Key Earnings Breakdown Matrix */}
+        
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           <div className="p-3.5 rounded-2xl bg-[#161616] border border-neutral-800 space-y-0.5">
             <div className="text-[11px] text-neutral-400 font-mono">TOTAL VERIFIED</div>
@@ -126,7 +126,7 @@ export const ParticipantDetailModal: React.FC<ParticipantDetailModalProps> = ({
           </div>
         </div>
 
-        {/* Team Members List (If Team Mode) */}
+        
         {!isIndividual && team && (
           <div className="space-y-3 pt-2">
             <div className="text-xs font-mono uppercase font-bold text-neutral-300">
@@ -165,7 +165,7 @@ export const ParticipantDetailModal: React.FC<ParticipantDetailModalProps> = ({
           </div>
         )}
 
-        {/* Individual Verified Proof History */}
+        
         {isIndividual && (
           <div className="space-y-3 pt-2">
             <div className="text-xs font-mono uppercase font-bold text-neutral-300 flex items-center justify-between">
@@ -193,7 +193,7 @@ export const ParticipantDetailModal: React.FC<ParticipantDetailModalProps> = ({
           </div>
         )}
 
-        {/* CTA Footer */}
+        
         <div className="pt-2 flex items-center gap-3">
           <button
             onClick={() => {

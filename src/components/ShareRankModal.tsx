@@ -48,7 +48,7 @@ export const ShareRankModal: React.FC<ShareRankModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200">
       <div className="relative w-full max-w-2xl rounded-3xl bg-[#111111] border border-neutral-800 p-5 sm:p-8 shadow-2xl space-y-6 max-h-[95vh] overflow-y-auto">
         
-        {/* Close Button */}
+        
         <button
           onClick={onClose}
           className="absolute top-4 right-4 p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors"
@@ -57,7 +57,7 @@ export const ShareRankModal: React.FC<ShareRankModalProps> = ({
           <X className="w-5 h-5" />
         </button>
 
-        {/* Modal Header */}
+        
         <div className="space-y-1">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#BEFF00]/10 border border-[#BEFF00]/30 text-[#BEFF00] text-xs font-mono font-bold">
             <Sparkles className="w-3.5 h-3.5" />
@@ -71,7 +71,7 @@ export const ShareRankModal: React.FC<ShareRankModalProps> = ({
           </p>
         </div>
 
-        {/* Format Selector Pills */}
+        
         <div className="flex items-center gap-2 p-1 rounded-2xl bg-[#0A0A0A] border border-neutral-800 w-fit">
           <button
             onClick={() => setRatio('story')}
@@ -105,7 +105,7 @@ export const ShareRankModal: React.FC<ShareRankModalProps> = ({
           </button>
         </div>
 
-        {/* The Visual Share Card Preview */}
+        
         <div className="flex justify-center my-2">
           <div
             id="eyfi-share-card-element"
@@ -117,11 +117,11 @@ export const ShareRankModal: React.FC<ShareRankModalProps> = ({
                 : 'max-w-lg min-h-[280px]'
             }`}
           >
-            {/* Background ₹ Motifs */}
+            
             <div className="rupee-watermark text-9xl -top-6 -right-6 select-none opacity-20">₹</div>
             <div className="rupee-watermark text-7xl -bottom-6 -left-6 select-none opacity-15">₹</div>
 
-            {/* Card Top: EYFI Logo & Challenge Tag */}
+            
             <div className="flex items-center justify-between relative z-10">
               <div className="flex items-center gap-2">
                 <div className="w-7 h-7 rounded-md bg-[#BEFF00] text-black font-black text-sm flex items-center justify-center">
@@ -136,7 +136,7 @@ export const ShareRankModal: React.FC<ShareRankModalProps> = ({
               </span>
             </div>
 
-            {/* Card Middle: Big Rank & Income */}
+            
             <div className="space-y-3 py-4 text-center relative z-10">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#BEFF00]/15 border border-[#BEFF00]/30 text-[#BEFF00] text-xs font-mono font-black uppercase">
                 <Flame className="w-3.5 h-3.5 fill-[#BEFF00]" />
@@ -152,7 +152,7 @@ export const ShareRankModal: React.FC<ShareRankModalProps> = ({
                 </div>
               </div>
 
-              {/* Chasing snippet */}
+              
               <div className="p-2 rounded-xl bg-neutral-900/90 border border-neutral-800 text-[11px] font-mono text-neutral-300">
                 <span className="text-[#BEFF00] font-bold">
                   {formatINR(userProfile.gapToNextRank)} more
@@ -161,7 +161,7 @@ export const ShareRankModal: React.FC<ShareRankModalProps> = ({
               </div>
             </div>
 
-            {/* Card Bottom: Challenge Tagline & Student details */}
+            
             <div className="border-t border-neutral-850 pt-3 flex items-center justify-between text-xs relative z-10">
               <div className="text-left">
                 <div className="font-bold text-white leading-tight">{userProfile.name}</div>
@@ -179,10 +179,10 @@ export const ShareRankModal: React.FC<ShareRankModalProps> = ({
           </div>
         </div>
 
-        {/* Share Action Buttons */}
+        
         <div className="space-y-3 pt-2">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-            {/* WhatsApp Share Button */}
+            
             <button
               onClick={handleWhatsAppShare}
               className="py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all shadow-md active:scale-95"
@@ -191,7 +191,7 @@ export const ShareRankModal: React.FC<ShareRankModalProps> = ({
               <span>Share WhatsApp</span>
             </button>
 
-            {/* Twitter / X Share Button */}
+            
             <button
               onClick={handleTwitterShare}
               className="py-3 px-4 rounded-xl bg-[#161616] hover:bg-[#1f1f1f] text-white font-bold text-xs sm:text-sm border border-neutral-800 flex items-center justify-center gap-2 transition-all hover:border-neutral-700 active:scale-95"
@@ -200,7 +200,7 @@ export const ShareRankModal: React.FC<ShareRankModalProps> = ({
               <span>Share to X / Twitter</span>
             </button>
 
-            {/* Copy Text / Link */}
+            
             <button
               onClick={handleCopy}
               className="py-3 px-4 rounded-xl bg-[#161616] hover:bg-[#1f1f1f] text-white font-bold text-xs sm:text-sm border border-neutral-800 flex items-center justify-center gap-2 transition-all hover:border-neutral-700 active:scale-95"

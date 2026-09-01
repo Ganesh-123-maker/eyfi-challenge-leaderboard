@@ -11,7 +11,7 @@ export const FastestRisers: React.FC<FastestRisersProps> = ({ onSelectRiser }) =
   return (
     <section id="fastest-risers-section" className="my-10 sm:my-14 relative">
       
-      {/* Section Header */}
+      
       <div className="flex flex-wrap items-end justify-between gap-3 mb-6">
         <div>
           <div className="inline-flex items-center gap-1.5 text-xs font-mono uppercase font-bold tracking-widest text-[#BEFF00] mb-1">
@@ -31,7 +31,7 @@ export const FastestRisers: React.FC<FastestRisersProps> = ({ onSelectRiser }) =
         </div>
       </div>
 
-      {/* Grid of Climber Cards */}
+      
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {FASTEST_RISERS_DATA.map((riser) => (
           <div
@@ -43,7 +43,7 @@ export const FastestRisers: React.FC<FastestRisersProps> = ({ onSelectRiser }) =
                 : 'hover:border-neutral-700 hover:bg-[#161616]'
             }`}
           >
-            {/* Top row: Avatar, Name & Movement */}
+            
             <div className="flex items-start justify-between gap-3 mb-3">
               <div className="flex items-center gap-3">
                 <div className="relative">
@@ -76,7 +76,7 @@ export const FastestRisers: React.FC<FastestRisersProps> = ({ onSelectRiser }) =
                 </div>
               </div>
 
-              {/* Jump Pill */}
+              
               <div className="text-right">
                 <div className="px-2.5 py-1 rounded-xl bg-emerald-950/80 border border-emerald-500/30 text-emerald-400 font-mono text-xs font-black inline-flex items-center gap-1 shadow-sm">
                   <ArrowUp className="w-3.5 h-3.5" />
@@ -85,7 +85,7 @@ export const FastestRisers: React.FC<FastestRisersProps> = ({ onSelectRiser }) =
               </div>
             </div>
 
-            {/* Middle: Old rank vs New Rank */}
+            
             <div className="p-2.5 rounded-xl bg-[#161616] border border-neutral-800 flex items-center justify-between font-mono text-xs mb-2.5">
               <div className="flex items-center gap-2">
                 <span className="text-neutral-500">#{riser.oldRank}</span>
@@ -97,7 +97,7 @@ export const FastestRisers: React.FC<FastestRisersProps> = ({ onSelectRiser }) =
               </div>
             </div>
 
-            {/* Shoutout microcopy */}
+            
             <div className="text-xs text-neutral-300 font-medium flex items-center justify-between">
               <span className="truncate italic text-neutral-400">
                 {riser.shoutout}

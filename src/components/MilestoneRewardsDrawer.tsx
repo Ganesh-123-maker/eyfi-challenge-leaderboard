@@ -48,7 +48,7 @@ export const MilestoneRewardsDrawer: React.FC<MilestoneRewardsDrawerProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
       <div className="relative w-full max-w-xl rounded-3xl bg-[#111111] border border-neutral-800 p-6 sm:p-8 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
         
-        {/* Close Button */}
+        
         <button
           onClick={onClose}
           className="absolute top-4 right-4 p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors"
@@ -57,7 +57,7 @@ export const MilestoneRewardsDrawer: React.FC<MilestoneRewardsDrawerProps> = ({
           <X className="w-5 h-5" />
         </button>
 
-        {/* Header */}
+        
         <div className="space-y-1">
           <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#BEFF00]/10 text-[#BEFF00] font-mono text-xs font-bold uppercase">
             <Gift className="w-3.5 h-3.5" />
@@ -71,7 +71,7 @@ export const MilestoneRewardsDrawer: React.FC<MilestoneRewardsDrawerProps> = ({
           </p>
         </div>
 
-        {/* Current Income Status */}
+        
         <div className="p-4 rounded-2xl bg-[#161616] border border-neutral-800 flex items-center justify-between">
           <div>
             <div className="text-[11px] font-mono text-neutral-400 uppercase">Your Verified Total</div>
@@ -87,7 +87,7 @@ export const MilestoneRewardsDrawer: React.FC<MilestoneRewardsDrawerProps> = ({
           </div>
         </div>
 
-        {/* Milestones List */}
+        
         <div className="space-y-3">
           {milestones.map((m) => {
             const isUnlocked = currentIncome >= m.targetIncome || m.unlocked;
@@ -118,7 +118,7 @@ export const MilestoneRewardsDrawer: React.FC<MilestoneRewardsDrawerProps> = ({
                     </p>
                   </div>
 
-                  {/* Status Button */}
+                  
                   <div className="shrink-0">
                     {isUnlocked ? (
                       m.claimed ? (
@@ -147,7 +147,7 @@ export const MilestoneRewardsDrawer: React.FC<MilestoneRewardsDrawerProps> = ({
           })}
         </div>
 
-        {/* Action */}
+        
         <div className="pt-2">
           <button
             onClick={() => {

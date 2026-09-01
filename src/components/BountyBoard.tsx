@@ -37,7 +37,7 @@ export const BountyBoard: React.FC<BountyBoardProps> = ({
   return (
     <div id="bounty-board-section" className="my-10 sm:my-14 space-y-6">
       
-      {/* Section Header */}
+      
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div className="space-y-1">
           <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#BEFF00]/10 border border-[#BEFF00]/25 text-[#BEFF00] font-mono text-xs font-bold uppercase tracking-wider">
@@ -59,7 +59,7 @@ export const BountyBoard: React.FC<BountyBoardProps> = ({
         </div>
       </div>
 
-      {/* Category Pills */}
+      
       <div className="flex flex-wrap gap-2">
         {(['all', 'building', 'freelancing', 'content', 'tutoring', 'selling'] as Category[]).map((cat) => (
           <button
@@ -76,7 +76,7 @@ export const BountyBoard: React.FC<BountyBoardProps> = ({
         ))}
       </div>
 
-      {/* Bounties Grid */}
+      
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredBounties.map((bounty) => {
           const isClaimed = claimedBounties[bounty.id];
@@ -91,7 +91,7 @@ export const BountyBoard: React.FC<BountyBoardProps> = ({
             >
               <div className="space-y-3">
                 
-                {/* Top Meta Bar */}
+                
                 <div className="flex items-start justify-between gap-2">
                   <span className="font-mono text-xl sm:text-2xl font-black text-[#BEFF00]">
                     {formatINR(bounty.reward)}
@@ -108,7 +108,7 @@ export const BountyBoard: React.FC<BountyBoardProps> = ({
                   </div>
                 </div>
 
-                {/* Title and Sponsor */}
+                
                 <div>
                   <div className="font-heading text-base sm:text-lg font-bold text-white leading-snug">
                     {bounty.title}
@@ -118,18 +118,18 @@ export const BountyBoard: React.FC<BountyBoardProps> = ({
                   </div>
                 </div>
 
-                {/* Description */}
+                
                 <p className="text-xs text-neutral-400 leading-relaxed">
                   {bounty.description}
                 </p>
 
-                {/* Deliverable info */}
+                
                 <div className="p-2.5 rounded-xl bg-[#161616] border border-neutral-800 text-[11px] font-mono text-neutral-300 space-y-1">
                   <div className="text-neutral-500 uppercase text-[9px] font-bold">DELIVERABLE:</div>
                   <div>{bounty.deliverable}</div>
                 </div>
 
-                {/* Tags */}
+                
                 <div className="flex flex-wrap gap-1.5 pt-1">
                   {bounty.tags.map((t, idx) => (
                     <span
@@ -143,7 +143,7 @@ export const BountyBoard: React.FC<BountyBoardProps> = ({
 
               </div>
 
-              {/* Action Button */}
+              
               <div className="pt-2">
                 {isClaimed ? (
                   <button

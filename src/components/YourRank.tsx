@@ -44,18 +44,18 @@ export const YourRank: React.FC<YourRankProps> = ({
   onViewLeaderboardRow,
   onViewRivalCaseStudy,
 }) => {
-  // Calculate progress towards next rank (percentage)
+
   const nextTargetIncome = userProfile.income + userProfile.gapToNextRank;
   const progressRatio = Math.min(Math.max((userProfile.income / nextTargetIncome) * 100, 15), 90);
 
   return (
     <div id="your-rank-card" className="relative my-4 sm:my-6 rounded-2xl sm:rounded-3xl bg-[#111111] border-2 border-[#BEFF00]/40 p-5 sm:p-7 md:p-8 shadow-[0_0_40px_rgba(190,255,0,0.12)] overflow-hidden">
       
-      {/* Background Watermark and Ambient Glow */}
+      
       <div className="rupee-watermark text-8xl sm:text-9xl -bottom-6 -right-6 select-none opacity-20">₹</div>
       <div className="absolute top-0 right-0 w-64 h-64 bg-[#BEFF00]/10 rounded-full blur-3xl pointer-events-none"></div>
 
-      {/* Top Banner Tag */}
+      
       <div className="flex flex-wrap items-center justify-between gap-3 mb-5 sm:mb-6">
         <div className="flex items-center gap-2">
           <span className="px-3 py-1 rounded-md bg-[#BEFF00] text-black font-extrabold text-xs tracking-wider uppercase font-mono shadow-sm">
@@ -67,7 +67,7 @@ export const YourRank: React.FC<YourRankProps> = ({
           </span>
         </div>
 
-        {/* Action badges */}
+        
         <div className="flex items-center gap-2">
           {onOpenWhileAway && (
             <button
@@ -91,12 +91,12 @@ export const YourRank: React.FC<YourRankProps> = ({
         </div>
       </div>
 
-      {/* Main Grid: User Rank Info & Motivation Target */}
+      
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
         
-        {/* Left: Your Big Rank & Income */}
+        
         <div className="lg:col-span-6 flex items-center gap-4 sm:gap-6">
-          {/* Avatar with Lime Border */}
+          
           <div className="relative shrink-0">
             <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-neutral-900 border-2 border-[#BEFF00] p-0.5 overflow-hidden shadow-md">
               <img
@@ -136,7 +136,7 @@ export const YourRank: React.FC<YourRankProps> = ({
           </div>
         </div>
 
-        {/* Right: Personal Rival Card & The Next Target Gap */}
+        
         <div className="lg:col-span-6 p-4 sm:p-5 rounded-2xl bg-[#161616] border border-neutral-800 space-y-3">
           
           <div className="flex items-center justify-between text-xs sm:text-sm">
@@ -153,7 +153,7 @@ export const YourRank: React.FC<YourRankProps> = ({
             </span>
           </div>
 
-          {/* Rival Profile Snippet */}
+          
           <div className="p-2.5 rounded-xl bg-neutral-900/80 border border-neutral-800 flex items-center justify-between gap-3">
             <div className="flex items-center gap-2.5 min-w-0">
               <img
@@ -179,7 +179,7 @@ export const YourRank: React.FC<YourRankProps> = ({
             </button>
           </div>
 
-          {/* Visual Interactive Target Bar */}
+          
           <div className="space-y-1.5">
             <div className="relative h-3.5 bg-neutral-950 rounded-full overflow-hidden border border-neutral-800 p-0.5">
               <div
@@ -200,7 +200,7 @@ export const YourRank: React.FC<YourRankProps> = ({
             </div>
           </div>
 
-          {/* Microcopy Motivator */}
+          
           <div className="flex items-center justify-between pt-1 text-xs">
             <p className="text-neutral-300 italic font-medium flex items-center gap-1.5">
               <Flame className="w-3.5 h-3.5 text-[#BEFF00]" />
@@ -214,7 +214,7 @@ export const YourRank: React.FC<YourRankProps> = ({
 
       </div>
 
-      {/* Bottom Action Toolbar */}
+      
       <div className="mt-6 pt-5 border-t border-neutral-850 flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-2.5">
           <button
@@ -265,7 +265,7 @@ export const YourRank: React.FC<YourRankProps> = ({
           </button>
         </div>
 
-        {/* View on Table Button */}
+        
         {onViewLeaderboardRow && (
           <button
             onClick={onViewLeaderboardRow}

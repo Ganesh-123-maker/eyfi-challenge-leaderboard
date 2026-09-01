@@ -38,7 +38,7 @@ export const WhatsAppNotificationModal: React.FC<WhatsAppNotificationModalProps>
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
       <div className="relative w-full max-w-lg rounded-3xl bg-[#111111] border border-neutral-800 p-6 sm:p-8 shadow-2xl space-y-6">
         
-        {/* Close Button */}
+        
         <button
           onClick={onClose}
           className="absolute top-4 right-4 p-2 rounded-xl text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors"
@@ -47,7 +47,7 @@ export const WhatsAppNotificationModal: React.FC<WhatsAppNotificationModalProps>
           <X className="w-5 h-5" />
         </button>
 
-        {/* Modal Header */}
+        
         <div className="space-y-1">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/80 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-bold">
             <MessageCircle className="w-3.5 h-3.5" />
@@ -61,7 +61,7 @@ export const WhatsAppNotificationModal: React.FC<WhatsAppNotificationModalProps>
           </p>
         </div>
 
-        {/* Preview of Real WhatsApp Alert */}
+        
         <div className="p-4 rounded-2xl bg-emerald-950/30 border border-emerald-500/30 space-y-2">
           <div className="flex items-center justify-between text-[11px] font-mono text-emerald-400">
             <span className="flex items-center gap-1 font-bold">
@@ -80,10 +80,10 @@ export const WhatsAppNotificationModal: React.FC<WhatsAppNotificationModalProps>
           </div>
         </div>
 
-        {/* Preference Form */}
+        
         <form onSubmit={handleSave} className="space-y-4">
           
-          {/* Phone Input */}
+          
           <div className="space-y-1.5">
             <label className="block text-xs font-mono uppercase font-bold text-neutral-300">
               WhatsApp Number
@@ -98,7 +98,7 @@ export const WhatsAppNotificationModal: React.FC<WhatsAppNotificationModalProps>
             />
           </div>
 
-          {/* Trigger Frequency */}
+          
           <div className="space-y-2">
             <label className="block text-xs font-mono uppercase font-bold text-neutral-300">
               Alert Trigger Preference
@@ -145,7 +145,7 @@ export const WhatsAppNotificationModal: React.FC<WhatsAppNotificationModalProps>
             </div>
           </div>
 
-          {/* Master Opt-in Checkbox */}
+          
           <label className="flex items-center gap-2.5 cursor-pointer pt-1">
             <input
               type="checkbox"
@@ -158,7 +158,7 @@ export const WhatsAppNotificationModal: React.FC<WhatsAppNotificationModalProps>
             </span>
           </label>
 
-          {/* Submit */}
+          
           <button
             type="submit"
             className="w-full py-3.5 rounded-xl bg-[#BEFF00] hover:bg-[#a6e000] text-black font-extrabold text-sm tracking-tight transition-all flex items-center justify-center gap-2"

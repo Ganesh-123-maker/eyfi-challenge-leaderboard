@@ -25,7 +25,6 @@
   }
 }
 
-/* Bento Grid Pattern & Textures */
 .bg-rupee-pattern {
   background-image: radial-gradient(rgba(190, 255, 0, 0.045) 1px, transparent 1px);
   background-size: 24px 24px;
@@ -53,7 +52,6 @@
   color: rgba(190, 255, 0, 0.025);
 }
 
-/* Custom glow */
 .glow-lime {
   box-shadow: 0 0 35px -5px rgba(190, 255, 0, 0.28);
 }
@@ -66,7 +64,6 @@
   border-color: rgba(190, 255, 0, 0.2);
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
